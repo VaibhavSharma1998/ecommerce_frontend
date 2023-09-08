@@ -1,83 +1,63 @@
-import React, { useState } from 'react'
+import React from 'react'
 import logo from '../../assets/img/logo.png'
 import { useNavigate } from 'react-router-dom'
 import { FcGoogle } from "react-icons/fc";
-import axios from 'axios'
-// import { register } from '../services/userServices'
+import { Controller, useForm } from 'react-hook-form'
+// import axios from 'axios'
+import { register } from '../services/userServices'
+import *  as yup from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup';
+
+// validationSchema using yup step 1
+
+const validationSchema = yup.object().shape({
+
+  name: yup.string().required('Name is required')
+    .min(3, 'Name should contain minimum of 3 characters'),
+
+  email: yup.string().required('Email is required')
+    .test(
+      'is-gmail',
+      'email must be in Gmail address',
+      (value) => value.endsWith('@gmail.com')
+    ),
+
+  password: yup.string().required('password is required')
+    .min(8, 'password should contain minimum 8 characters'),
+
+  confirmPassword: yup.string()
+    .required('confirmPassword is required')
+    .oneOf([yup.ref('password'), null], 'Password must match')
+})
 
 
 const Signup = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData({ ...formData, [name]: value })
-  }
-
-  const initialState = {
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  }
-
-  const resetForm = () => {
-    setFormData(initialState)
-  }
+  // step 2:initialize react-form-hook with resolver
+  const { control, handleSubmit,
+    formState: { errors }, reset } = useForm({
+      resolver: yupResolver(validationSchema)
+    })
 
   const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      return alert('password and confirmpassword does not match!')
-    }
-
-    // register(formData).then((res) => console.log(res, 'res')).catch((err) => console.log(err, 'err'))
-
+  const onSubmit = async (data) => {
     try {
-      const response = await axios.post(
-        'http://localhost:4000/api/v1/register',
-        formData, // Send the formData object as the request body
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      if (response.status === 201) {
-        // Registration successful, you can handle this as needed
-        alert('Registration successful!');
-        // reset after sucessfully submit
-        resetForm()
-        navigate('/login')
-      } else {
-        // Handle registration errors, display an error message
-        alert('Registration failed.');
-      }
-
-
+      // Step 3: Perform form submission
+      await register(data);
+      alert('Registration successful!');
+      reset();
+      navigate('/login');
     } catch (error) {
-      console.error('Error occurred:', error);
-      // Handle any other errors, display an error message
+      console.log('Error:', error);
       alert('Registration failed. Please try again.');
-      setFormData(formData)
     }
   };
-
 
   return (
     // main conatiner div
     <div className='flex items-center justify-center flex-col   '>
 
-      
       {/* div for  logo and name of the website */}
       <div className='flex items-center w-[25rem]   
       flex-col justify-center bg-gray-400 pt-4'>
@@ -93,37 +73,99 @@ const Signup = () => {
       {/* div for form and sign up  button */}
       <div className='flex  items-center w-[25rem]   
       flex-col justify-center bg-gray-400 '>
-        <form className='mx-5' onSubmit={handleSubmit}>
-          <label htmlFor="name" className='block'>Name*</label>
-          <input type="text" name="name" id="name"
-            className='block mt-2  bg-gray-100 text-black 
-           py-2 px-4 rounded-lg outline-none w-80 '
-            onChange={handleChange}
-            value={formData.name} required
+        {/* step4:added the onSubmit handler to the form */}
+
+        <form className='mx-5' onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="name" className='block'>Name <span className='text-red-600'> *</span></label>
+
+          <Controller
+            name="name"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <input type="text"
+                // name="name" 
+                id="name"
+                className='block mt-2  bg-gray-100
+                         text-black 
+                         py-2 px-4 rounded-lg 
+                          outline-none w-80 text-red '
+                {...field}
+
+              />
+            )}
           />
+          {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
 
-          <label htmlFor="email" className='block'>Email*</label>
-          <input type="email" name="email" id="email"
-            onChange={handleChange} value={formData.email} required
-            className='block mt-2  bg-gray-100 text-black 
-            py-2 px-4 rounded-lg outline-none w-80 ' />
+          {/* step 5: Usecontroller for input fields */}
 
-          <label htmlFor="password" className='block '>Password*</label>
-          <input type="password" name="password" id="password"
-            className='block mt-2  bg-gray-100 text-black
-             py-2 px-4 rounded-lg outline-none w-80 '
-            onChange={handleChange}
-            value={formData.password}
-            required />
+          <label htmlFor="email" className='block  mt-4'> Email<span className='text-red-600'> *</span></label>
+          <Controller
+            name="email"
+            control={control}
+            defaultValue=''
+            render={({ field }) => (
+              <input type="email"
+                id="email"
+                className='block mt-4  bg-gray-100
+                        text-black py-2 
+                        px-4 rounded-lg 
+                        outline-none w-80 '                       
+                {...field}
 
-          <label htmlFor="name" className='block'>Confirm Password*</label>
-          <input type="password" name="confirmPassword" id="confirmPassword"
-            className='block mt-2  bg-gray-100
-             text-black 
-            py-2 px-4 rounded-lg outline-none w-80 '
-            onChange={handleChange}
-            value={formData.confirmPassword}
-            required />
+               />
+            )}
+          />
+          {errors.email && <p className='text-red-600'>{errors.email.message}</p>}
+
+          <label htmlFor="password" className='block '>Password<span className='text-red-600'> *</span></label>
+
+          <Controller
+            name="password"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <input
+                type="password"
+
+                id="password"
+                className='block mt-2 
+               bg-gray-100 text-black
+               py-2 px-4 rounded-lg
+                outline-none w-80 '
+                {...field}
+                 />
+
+            )}
+          />
+          {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
+
+          <label htmlFor="name"
+            className='block'>
+            Confirm Password<span className='text-red-600'> *</span></label>
+
+          <Controller
+            name="confirmPassword"
+            control={control}
+            defaultValue=""
+            render={({ field }) => (
+              <input type="password"
+                // name="confirmPassword" 
+                id="confirmPassword"
+                className='block mt-2  bg-gray-100
+                 text-black 
+                py-2 px-4 rounded-lg outline-none w-80 '
+
+                {...field}
+                // onChange={handleChange}
+                // value={formData.confirmPassword}
+               
+              />
+            )}
+
+          />
+          {errors.confirmPassword && <p className='text-red-600'>
+            {errors.confirmPassword.message}</p>}
 
           <input type="submit" value="Sign Up"
             className='bg-black text-white w-80 
@@ -143,14 +185,14 @@ const Signup = () => {
          py-2 px-4 mt-2 cursor-pointer
          bg-gray-300  text-black w-80 ">
           <FcGoogle className='mr-2' />
-          <input type="submit" value={`Continue with google`} className='mr-4 ' />
+          <input type="submit" value={`Continue with google`} 
+          className='mr-4 ' />
         </div>
-        <p className='pt-3'>Already have an account? 
-        <span className='text-gray-900 font-bold cursor-pointer' 
-        onClick={()=>navigate('/login')}>login in</span></p>
+        <p className='pt-3'>Already have an account?
+          <span className='text-gray-900 font-bold cursor-pointer'
+            onClick={() => navigate('/login')}>login in</span></p>
       </div>
 
-    
     </div>
   )
 }

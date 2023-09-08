@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import logo from '../assets/img/logo.png'
 import { Link } from 'react-router-dom'
+
 const Navbar = () => {
 
   const [userData,setUserData] = useState(null)
@@ -12,6 +13,8 @@ const Navbar = () => {
     setUserData(parsedData)
     // console.log(userData.user.name)
   },[])
+
+
   return (
   
    <navbar className="bg-white flex items-center">
