@@ -7,7 +7,7 @@ const Navbar = () => {
   const [userData,setUserData] = useState(null)
 
   useEffect(()=>{
-    const storeData = localStorage.getItem('userData')
+    const storeData = localStorage.getItem('data')
     const parsedData = JSON.parse(storeData)
     console.log(parsedData);
     setUserData(parsedData)

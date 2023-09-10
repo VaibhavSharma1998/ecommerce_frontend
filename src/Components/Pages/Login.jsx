@@ -1,7 +1,8 @@
 import React from 'react'
 import logo from '../../assets/img/logo.png'
-import axios from 'axios'
+// import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { login } from '../services/userServices'
 import { FcGoogle } from "react-icons/fc";
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -11,27 +12,40 @@ import { yupResolver } from '@hookform/resolvers/yup'
 const Login = () => {
     const navigate = useNavigate()
 
-    const onSubmit = async (data) => {
-        // e.preventDefault()
+    // const onSubmit = async (data) => {
+    //     // e.preventDefault()
 
-        try {
-            const res = await axios.post('http://localhost:4000/api/v1/login', data)
+    //     try {
+    //         const res = await axios.post('http://localhost:4000/api/v1/login', data)
 
-            if (res.status === 200) {
-                const userData = res.data
-                localStorage.setItem('userData', JSON.stringify(userData))
-                alert('Login Successfully!')
-                reset()
-                navigate('/men')
-            } else {
-                alert('Invalid User,Please signup to continue')
-            }
+    //         if (res.status === 200) {
+    //             const userData = res.data
+    //             localStorage.setItem('userData', JSON.stringify(userData))
+    //             alert('Login Successfully!')
+    //             reset()
+    //             navigate('/men')
+    //         } else {
+    //             alert('Invalid User,Please signup to continue')
+    //         }
 
 
-        } catch (err) {
-            console.log('Error:', err)
-            alert('Inside catch error')
-        }
+    //     } catch (err) {
+    //         console.log('Error:', err)
+    //         alert('Inside catch error')
+    //     }
+    // }
+
+    const onSubmit = (data) => {
+        login(data).then(() => {
+            alert('Login Successfully!')
+            localStorage.setItem('data',JSON.stringify(data))
+            reset()
+            navigate('/men')
+        })
+            .catch((error) => {
+                console.log('Error:', error)
+                alert('Login Failed')
+            })
     }
 
     // step 1 validationSchema using yup
@@ -86,7 +100,7 @@ const Login = () => {
                                                 px-4 rounded-lg 
                                                 outline-none w-80 '
                                 {...field}
-                                
+
                             />
                         )}
                     />
@@ -106,9 +120,9 @@ const Login = () => {
                          bg-gray-100 text-black
                       py-2 px-4 rounded-lg outline-none w-80 '
                                 {...field}
-                                //   onChange={handleChange}
-                                //     value={loginData.password} 
-                                 />
+                            //   onChange={handleChange}
+                            //     value={loginData.password} 
+                            />
                         )}
                     />
 

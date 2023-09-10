@@ -41,18 +41,34 @@ const Signup = () => {
 
   const navigate = useNavigate()
 
-  const onSubmit = async (data) => {
-    try {
-      // Step 3: Perform form submission
-      await register(data);
-      alert('Registration successful!');
-      reset();
-      navigate('/login');
-    } catch (error) {
-      console.log('Error:', error);
-      alert('Registration failed. Please try again.');
-    }
-  };
+  // const onSubmit = async (data) => {
+  //   try {
+  //     // Step 3: Perform form submission
+  //     await register(data);
+  //     alert('Registration successful!');
+  //     reset();
+  //     navigate('/login');
+  //   } catch (error) {
+  //     console.log('Error:', error);
+  //     alert('Registration failed. Please try again.');
+  //   }
+  // };
+
+
+ const onSubmit = (data) =>{
+    register(data).then(()=>{
+      // register succesful
+      alert('Registration successful!')
+      reset()
+      navigate('/login')
+    })
+    .catch((error)=>{
+      // Registration failed
+      console.log('Error',error)
+      alert('Registration failed. Please try again.')
+    })
+ }
+    
 
   return (
     // main conatiner div
