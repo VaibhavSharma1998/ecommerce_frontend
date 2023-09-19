@@ -7,14 +7,21 @@ import Outlet from "./Components/Pages/Outlet";
 import Signup from "./Components/Pages/Signup";
 import Cart from "./Components/Pages/Cart";
 import Login from "./Components/Pages/Login";
+import Products from "./Components/Pages/Products";
 import {  BrowserRouter , Route, Routes} from "react-router-dom";
+import Product from "./Components/Pages/Product";
+import WomenProducts from "./Components/Pages/WomenProducts";
+import MenProducts from "./Components/Pages/MenProducts";
+import BestDeals from "./Components/Pages/BestDeals";
+import ExclusiveProducts from "./Components/Pages/ExclusiveProducts";
+import WomenBagPacks from "./Components/Pages/WomenBagPacks";
 
 function App() {
   return (
     <BrowserRouter>
         <Navbar />
   <Routes>
-  {/* <Route path="/" element={<Men />} /> */}
+  <Route path="/" element={<Men />} />
     <Route path="/men" element={<Men />} />
     <Route path="/women" element={<Women />} />
     <Route path="/kids" element={<Kids />} />
@@ -23,6 +30,13 @@ function App() {
     <Route path="/signup" element={<Signup />} />
     <Route path="/cart" element={<Cart />} />
     <Route path="/login" element={<Login/>}/>
+    <Route path="/products" element={<Products/>}/>
+    <Route path="/product" element={<Product/>}/>
+    <Route path="/womenproducts" element={<WomenProducts/>}/>
+    <Route path="/menproducts" element={<MenProducts/>}/>
+    <Route path="/bestdeals" element={<BestDeals/>}/>
+    <Route path="/exclusiveproducts" element={<ExclusiveProducts/>}/>
+    <Route path="/womenbagpacks" element={<WomenBagPacks/>}/>
   </Routes>
     </BrowserRouter>
   );

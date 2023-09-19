@@ -1,0 +1,48 @@
+import { useState, useEffect } from "react";
+import React from "react";
+// import Image from "../../assets/img/sharp-dress.png";
+import axios from "axios";
+
+const Products = () => {
+  const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/v1/products")
+      .then((res) => {
+        setItems(res.data.products);
+        console.log(res.data);
+        console.log(typeof items);
+      })
+      .catch((err) => {
+        console.log("can-not get the data", err);
+      });
+  }, []);
+  return (
+    <>
+      <div className="w-full px-[10%]">
+        
+        <div className="flex  flex-wrap justify-center w-full">
+          {items.map((product, index) => (
+            <div className="w-[30%] m-3 z-40">
+              <img
+                key={index}
+                src={product.image}
+                alt=""
+                className="w-full h-[400px] object-cover"
+              />
+              <p className="my-2 pl-2">{product.name}</p>
+              <p className="my-2 pl-2">
+                <s>{`₹ ${product.price}`}</s> ₹199
+              </p>
+            </div>
+          ))}
+         
+        </div>
+        
+      </div>
+    </>
+  );
+};
+
+export default Products;

@@ -115,7 +115,7 @@ const Signup = () => {
 
           {/* step 5: Usecontroller for input fields */}
 
-          <label htmlFor="email" className='block  mt-4'> Email<span className='text-red-600'> *</span></label>
+          <label htmlFor="email" className='block  '> Email<span className='text-red-600'> *</span></label>
           <Controller
             name="email"
             control={control}
@@ -123,7 +123,7 @@ const Signup = () => {
             render={({ field }) => (
               <input type="email"
                 id="email"
-                className='block mt-4  bg-gray-100
+                className='block mt-2  bg-gray-100
                         text-black py-2 
                         px-4 rounded-lg 
                         outline-none w-80 '                       
@@ -184,7 +184,7 @@ const Signup = () => {
             {errors.confirmPassword.message}</p>}
 
           <input type="submit" value="Sign Up"
-            className='bg-black text-white w-80 
+            className='bg-black  text-white w-80 
             rounded-3xl py-2 px-4 mt-2 cursor-pointer' />
 
         </form>
