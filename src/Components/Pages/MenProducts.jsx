@@ -8,7 +8,7 @@ const MenProducts = () => {
     <div className="w-full px-[10%]">
       <div className="flex flex-wrap">
         {state.map((items, index) => (
-          <div className="w-[30%] m-4 bg-[#dedede] rounded-md p-2">
+          <div className="w-[30%] m-4 bg-[#dedede] rounded-md p-2 cursor-pointer">
             <img
               key={index}
               src={items.image}
