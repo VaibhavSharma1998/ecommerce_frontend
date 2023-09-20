@@ -18,10 +18,11 @@ const Products = () => {
         console.log("can-not get the data", err);
       });
   }, []);
+  window.scrollTo(0,0)
   return (
     <>
       <div className="w-full px-[10%]">
-        
+      <h1 className="text-gray-700 font-bold text-3xl text-center">All Products</h1>
         <div className="flex  flex-wrap justify-center w-full">
           {items.map((product, index) => (
             <div className="w-[30%] m-3 z-40">

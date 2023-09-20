@@ -1,27 +1,27 @@
 import React, { useState, useEffect } from "react";
 // import Image from "../../assets/img/sharp-dress.png";
-// import girlImage from '../../assets/img/author-3.png'
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BsArrowRightShort } from "react-icons/bs";
 
 const Men = () => {
   // step 1: create  a state variable
 
   // note add selectgender as a variable in first
-  // const [, setSelectedGender] = useState("Women");
+  // const [selectGender, setSelectedGender] = useState("Women");
   // const [selectcategory, setSelectedCategory] = useState("T-Shirt");
 
   // api useState
 
   const [products, setProducts] = useState([]);
-  const [shoe, setShoe] = useState([]);
-  const [watchItems, setWatchItems] = useState([]);
-  const [womenProducts,setWomenProducts] =useState([])
-  const [menProducts,setMenProducts] = useState([])
-  const [bestProducts,setBestProducts] = useState([])
-  const [exclusiveProducts,setExclusiveProducts] = useState([])
-  const [womenBags,setWomenBags] = useState([])
+  const [womenShoes, setWomenShoes] = useState([]);
+  const [womenWatches, setWomenWatches] = useState([]);
+  const [womenProducts, setWomenProducts] = useState([]);
+  const [menProducts, setMenProducts] = useState([]);
+  const [bestProducts, setBestProducts] = useState([]);
+  const [exclusiveProducts, setExclusiveProducts] = useState([]);
+  const [womenBags, setWomenBags] = useState([]);
+  const [flatHillProduct, setFlatHillProduct] = useState([]);
   // console.log('Women',WomenProducts)
 
   useEffect(() => {
@@ -34,39 +34,57 @@ const Men = () => {
         // shoe category data fetching
 
         const shoeData = res.data.products.filter(
-          (item) => item.category === "shoes"
+          (item) => item.category === "shoes" && item.role === "women"
         );
-        setShoe(shoeData);
+        setWomenShoes(shoeData);
+        console.log("shoeData:", shoeData);
 
         //  watches category data fetching
         const watchData = res.data.products.filter(
-          (items) => items.category === "watches"
+          (items) => items.category === "watches" && items.role === "women"
         );
-        setWatchItems(watchData); 
+        setWomenWatches(watchData);
 
-        // women all products 
-        const womendata = res.data.products.filter((items) => items.role === "women")
-        setWomenProducts(womendata)
+        // women all products
+        const womendata = res.data.products.filter(
+          (items) => items.role === "women"
+        );
+        setWomenProducts(womendata);
 
         // men all products
-        const mendata = res.data.products.filter((items) => items.role === "men")
-        setMenProducts(mendata)
+        const mendata = res.data.products.filter(
+          (items) => items.role === "men"
+        );
+        setMenProducts(mendata);
 
-        // best deals all products 
-        const bestItems = res.data.products.filter((items)=> items.bestProducts === true)
-        setBestProducts(bestItems)
+        // best deals all products
+        const bestItems = res.data.products.filter(
+          (items) => items.bestProducts === true
+        );
+        setBestProducts(bestItems);
 
-        // exclusive product for women 
-        const exclusiveItems = res.data.products.filter((items)=> items.category ==="general" && items.role === "women")
-          setExclusiveProducts(exclusiveItems)
+        // exclusive product for women
+        const exclusiveItems = res.data.products.filter(
+          (items) => items.category === "general" && items.role === "women"
+        );
+        setExclusiveProducts(exclusiveItems);
 
-         // bagpacks for women
-         const bagpacksItems = res.data.products.filter((items)=> items.category ==="bagpacks" && items.role === "women") 
-          setWomenBags(bagpacksItems)
+        // bagpacks for women
+        const bagpacksItems = res.data.products.filter(
+          (items) => items.category === "bagpacks" && items.role === "women"
+        );
+        setWomenBags(bagpacksItems);
+        console.log("bagpacksItems:", bagpacksItems);
+
+        // fetching single data with name (Flat Hill Slingback)
+
+        const flatHill = res.data.products.filter(
+          (item) => item.name === "Flat Hill Slingback"
+        );
+        setFlatHillProduct(flatHill);
         console.log(typeof products);
       })
 
-     
       .catch((err) => {
         console.log("Error fetching the data:", err);
       });
@@ -74,7 +92,6 @@ const Men = () => {
 
   const navigate = useNavigate();
 
-  
   // this is to find the firstIndex of bestProducts
 
   // const firstIndex = products.findIndex((product) => product.bestProducts);
@@ -200,7 +217,7 @@ const Men = () => {
            text-gray-700 py-2 px-8 
           absolute left-[20%] top-[50%]
           hover:bg-gray-700 hover:text-white"
-          onClick={()=> navigate('/womenproducts',{state:womenProducts}) }
+            onClick={() => navigate("/womenproducts", { state: womenProducts })}
           >
             For Her
           </button>
@@ -221,7 +238,7 @@ const Men = () => {
             className="bg-white text-gray-700 
           py-2 px-8 absolute right-[28%] top-[50%]
           hover:bg-gray-700 hover:text-white"
-          onClick={()=> navigate('/menproducts',{state:menProducts})}
+            onClick={() => navigate("/menproducts", { state: menProducts })}
           >
             For Him
           </button>
@@ -250,7 +267,10 @@ const Men = () => {
                   key={index}
                   src={product.image}
                   alt={product.name}
-                  className="h-[250px]"
+                  className="h-[250px] cursor-pointer"
+                  onClick={() =>
+                    navigate("/product", { state: flatHillProduct })
+                  }
                 />
                 <p>{product.name}</p>
                 <p>
@@ -292,8 +312,9 @@ const Men = () => {
                 <img
                   key={index}
                   src={product.image}
-                  alt={product.image}
-                  className="h-[250px]"
+                  alt={product.name}
+                  className="h-[250px] cursor-pointer"
+                  // onClick={()=> }
                 />
                 <p>{product.name}</p>
                 <p>
@@ -351,7 +372,7 @@ const Men = () => {
         <button
           className="text-white bg-gray-700 py-[4px] 
         px-[14px] font-semibold block hover:bg-black"
-          onClick={() => navigate("/bestdeals",{state:bestProducts})}
+          onClick={() => navigate("/bestdeals", { state: bestProducts })}
         >
           View All
         </button>
@@ -387,6 +408,7 @@ const Men = () => {
                 className="bg-gray-700 
               text-white mx-[10px] inline py-[8px]
                px-[50px] hover:bg-black font-semibold "
+                onClick={() => navigate("/products")}
               >
                 Explore
               </button>
@@ -394,20 +416,25 @@ const Men = () => {
           </div>
         </div>
         <div className="w-[50%] relative">
-        {products.map((product, index) =>
-          product.name === "Outfit" ? (
-            <img
-              key={index}
-              src={product.image}
-              alt={product.image}
-              className="w-full  h-[500px]"
-            />
-          ) : null
-        )}
-        <button className="absolute right-64 bottom-5
+          {products.map((product, index) =>
+            product.name === "Outfit" ? (
+              <img
+                key={index}
+                src={product.image}
+                alt={product.image}
+                className="w-full  h-[500px]"
+              />
+            ) : null
+          )}
+          <button
+            className="absolute right-64 bottom-5
          text-white font-bold text-xl"
-          onClick={()=> navigate('/exclusiveproducts',{state:exclusiveProducts})}>  
-          Outfit   <span className="text-">&#8594;</span></button>
+            onClick={() =>
+              navigate("/exclusiveproducts", { state: exclusiveProducts })
+            }
+          >
+            Outfit <span className="text-">&#8594;</span>
+          </button>
         </div>
       </div>
       {/* Exclusive collection 2023 end */}
@@ -425,10 +452,12 @@ const Men = () => {
               />
             ) : null
           )}
-          <button className="absolute left-32 bottom-5
+          <button
+            className="absolute left-32 bottom-5
          text-white font-bold text-xl"
-          onClick={()=> navigate('/womenbagpacks',{state:womenBags})}>  
-          Vanity Bags  <span className="text-">&#8594;</span>
+            onClick={() => navigate("/womenbagpacks", { state: womenBags })}
+          >
+            Vanity Bags <span className="text-">&#8594;</span>
           </button>
         </div>
         <div className="w-[33%]  mr-[10px] relative">
@@ -442,27 +471,31 @@ const Men = () => {
               />
             ) : null
           )}
-          <button className="absolute left-32 bottom-5
+          <button
+            className="absolute left-32 bottom-5
          text-white font-bold text-xl"
-          onClick={()=> navigate('/womenbagpacks',{state:womenBags})}>  
-          Hats <span className="">&#8594;</span>
+            onClick={() => navigate("/womenwatches", { state: womenWatches })}
+          >
+            Hats <span className="">&#8594;</span>
           </button>
         </div>
-        <div className="w-[33%]   mr-[10px] relative">
+        <div className="w-[33%]   mr-[10px] relative bg-gradient-to-b  from-[#212121] via-transparent to-transparent">
           {products.map((product, index) =>
             product.name === "High Heels" ? (
               <img
                 key={index}
                 src={product.image}
                 alt={product.image}
-                className="w-[400px] h-[350px]"
+                className="w-[400px] h-[350px] "
               />
             ) : null
           )}
-          <button className="absolute right-32 bottom-5
-          text-black font-extrabold text-xl"
-          onClick={()=> navigate('/womenbagpacks',{state:womenBags})}>  
-          High Heels <span className="">&#8594;</span>
+          <button
+            className="absolute right-32 bottom-5
+          text-[#cc9797] font-extrabold text-xl"
+            onClick={() => navigate("/womenshoes", { state: womenShoes })}
+          >
+            High Heels <span className="">&#8594;</span>
           </button>
         </div>
       </div>

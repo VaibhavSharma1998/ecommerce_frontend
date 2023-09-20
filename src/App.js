@@ -15,7 +15,8 @@ import MenProducts from "./Components/Pages/MenProducts";
 import BestDeals from "./Components/Pages/BestDeals";
 import ExclusiveProducts from "./Components/Pages/ExclusiveProducts";
 import WomenBagPacks from "./Components/Pages/WomenBagPacks";
-
+import WomenWatches from "./Components/Pages/WomenWatches";
+import WomenShoes from "./Components/Pages/WomenShoes";
 function App() {
   return (
     <BrowserRouter>
@@ -37,6 +38,8 @@ function App() {
     <Route path="/bestdeals" element={<BestDeals/>}/>
     <Route path="/exclusiveproducts" element={<ExclusiveProducts/>}/>
     <Route path="/womenbagpacks" element={<WomenBagPacks/>}/>
+    <Route path="/womenwatches" element={<WomenWatches/>}/>
+    <Route path="/womenshoes" element={<WomenShoes/>}/>
   </Routes>
     </BrowserRouter>
   );

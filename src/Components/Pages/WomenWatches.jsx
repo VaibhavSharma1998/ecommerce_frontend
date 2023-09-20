@@ -1,18 +1,16 @@
 import React from "react";
-// import axios  from 'axios'
-import { useLocation,useNavigate } from "react-router-dom";
-
-const WomenProducts = () => {
+import { useLocation } from "react-router-dom";
+const WomenWatches = () => {
   const location = useLocation();
   //    here we do object destructing to
   // acces the key name state which we retrieve/obtain from men componemt
   const { state } = location;
-  const navigate = useNavigate()
+
   // scroll to top
-  window.scrollTo(0,0)
+  window.scrollTo(0, 0);
   return (
     <div className="w-full px-[10%]">
-      <h1 className="text-gray-700 font-bold text-4xl text-center">Women Products</h1>
+      <h1 className="text-gray-700 font-bold text-4xl text-center">Watches</h1>
       <div className="flex flex-wrap">
         {state.map((items, index) => (
           <div className="w-[30%] m-4 bg-[#dedede] rounded-md p-2 cursor-pointer mt-8">
@@ -20,9 +18,7 @@ const WomenProducts = () => {
               key={index}
               src={items.image}
               alt={items.image}
-              className="w-full h-96 cursor-pointer" 
-              // onClick={(product) => navigate('/product', { state: { productId: product._id } })}
-              onClick={ () => navigate('/product',{state})}
+              className="w-full h-96"
             />
             <p className="mt-3">{items.name}</p>
             <p>
@@ -35,4 +31,4 @@ const WomenProducts = () => {
   );
 };
 
-export default WomenProducts;
+export default WomenWatches;
