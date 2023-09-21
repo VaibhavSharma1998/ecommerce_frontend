@@ -22,7 +22,7 @@ const WomenProducts = () => {
               alt={items.image}
               className="w-full h-96 cursor-pointer" 
               // onClick={(product) => navigate('/product', { state: { productId: product._id } })}
-              onClick={ () => navigate('/product',{state})}
+              onClick={ () => navigate('/product',{state: items})}
             />
             <p className="mt-3">{items.name}</p>
             <p>

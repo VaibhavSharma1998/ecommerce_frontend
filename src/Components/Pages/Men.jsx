@@ -8,8 +8,9 @@ const Men = () => {
   // step 1: create  a state variable
 
   // note add selectgender as a variable in first
-  // const [selectGender, setSelectedGender] = useState("Women");
-  // const [selectcategory, setSelectedCategory] = useState("T-Shirt");
+  const [selectGender, setSelectedGender] = useState("Women");
+  const [selectCategory, setSelectedCategory] = useState("t-shirt");
+  const [categoryData, setCategoryData] = useState();
 
   // api useState
 
@@ -90,101 +91,37 @@ const Men = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (selectGender === "Women") {
+      setCategoryData(
+        womenProducts.filter((item) => item.category === selectCategory)
+      );
+    } else {
+      setCategoryData(
+        menProducts.filter((item) => item.category === selectCategory)
+      );
+    }
+  }, [selectCategory, selectGender, womenProducts]);
+
   const navigate = useNavigate();
 
   // this is to find the firstIndex of bestProducts
 
   // const firstIndex = products.findIndex((product) => product.bestProducts);
 
-  // const category = [
-  //   "T_Shirt",
-  //   "Shirt",
-  //   "Shoes",
-  //   "Watches",
-  //   "Sunglasses",
-  //   "Backpacks",
-  // ];
+  const category = [
+    "t-shirt",
+    "shirt",
+    "shoes",
+    "watches",
+    "sunglasses",
+    "bagpacks",
+  ];
 
-  // const MenProducts = {
-  //   T_Shirt: [
-  //     { id: 1, name: "T-Shirt 1", image: Image },
-  //     { id: 2, name: "T-Shirt 2", image: Image },
-  //     { id: 3, name: "T-Shirt 3", image: Image },
-  //     { id: 3, name: "T-Shirt 4", image: Image },
-  //   ],
-  //   Shirt: [
-  //     { id: 1, name: "Shirt ", image: Image },
-  //     { id: 2, name: "Shirt ", image: Image },
-  //     { id: 3, name: "Shirt ", image: Image },
-  //     { id: 3, name: "Shirt ", image: Image },
-  //   ],
-  //   Shoes: [
-  //     { id: 1, name: "shoes 1", image: Image },
-  //     { id: 2, name: "shoes 2", image: Image },
-  //     { id: 3, name: "shoes 3", image: Image },
-  //     { id: 3, name: "shoes 4", image: Image },
-  //   ],
-  //   Watches: [
-  //     { id: 1, name: "watches 1", image: Image },
-  //     { id: 2, name: "watches 2", image: Image },
-  //     { id: 3, name: "watches 3", image: Image },
-  //     { id: 3, name: "watches 4", image: Image },
-  //   ],
-  //   Sunglasses: [
-  //     { id: 1, name: "sunglasses 1", image: Image },
-  //     { id: 2, name: "sunglasses 2", image: Image },
-  //     { id: 3, name: "sunglasses 3", image: Image },
-  //     { id: 3, name: "sunglassesT-Shirt 4", image: Image },
-  //   ],
-  //   Backpacks: [
-  //     { id: 1, name: "backpacks 1", image: Image },
-  //     { id: 2, name: "backpacks 2", image: Image },
-  //     { id: 3, name: "backpacks 3", image: Image },
-  //     { id: 3, name: "backpacksT-Shirt 4", image: Image },
-  //   ],
-  // };
 
-  // const WomenProducts = {
-  //   tshirt: [
-  //     { id: 1, name: "T-Shirt 1", image: Image },
-  //     { id: 2, name: "T-Shirt 2", image: Image },
-  //     { id: 3, name: "T-Shirt 3", image: Image },
-  //     { id: 3, name: "T-Shirt 4", image: Image },
-  //   ],
-  //   shirt: [
-  //     { id: 1, name: "Shirt ", image: Image },
-  //     { id: 2, name: "Shirt ", image: Image },
-  //     { id: 3, name: "Shirt ", image: Image },
-  //     { id: 3, name: "Shirt ", image: Image },
-  //   ],
-  //   shoes: [
-  //     { id: 1, name: "shoes 1", image: Image },
-  //     { id: 2, name: "shoes 2", image: Image },
-  //     { id: 3, name: "shoes 3", image: Image },
-  //     { id: 3, name: "shoes 4", image: Image },
-  //   ],
-  //   watches: [
-  //     { id: 1, name: "watches 1", image: Image },
-  //     { id: 2, name: "watches 2", image: Image },
-  //     { id: 3, name: "watches 3", image: Image },
-  //     { id: 3, name: "watches 4", image: Image },
-  //   ],
-  //   sunglasses: [
-  //     { id: 1, name: "sunglasses 1", image: Image },
-  //     { id: 2, name: "sunglasses 2", image: Image },
-  //     { id: 3, name: "sunglasses 3", image: Image },
-  //     { id: 3, name: "sunglassesT-Shirt 4", image: Image },
-  //   ],
-  //   backpacks: [
-  //     { id: 1, name: "backpacks 1", image: Image },
-  //     { id: 2, name: "backpacks 2", image: Image },
-  //     { id: 3, name: "backpacks 3", image: Image },
-  //     { id: 3, name: "backpacksT-Shirt 4", image: Image },
-  //   ],
-  // };
-  // const handleCategoryChange = (category) => {
-  //   setSelectedCategory(category);
-  // };
+
+  console.log(categoryData, "categoryData");
+
   return (
     <div className=" w-full  px-[10%]">
       {/* top main text start */}
@@ -269,7 +206,14 @@ const Men = () => {
                   alt={product.name}
                   className="h-[250px] cursor-pointer"
                   onClick={() =>
-                    navigate("/product", { state: flatHillProduct })
+                    navigate("/product", {
+                      state: {
+                        image: product.image,
+                        name: product.name,
+                        rating: product.name,
+                        category: product.category,
+                      },
+                    })
                   }
                 />
                 <p>{product.name}</p>
@@ -280,30 +224,6 @@ const Men = () => {
               </>
             ) : null
           )}
-
-          {/* here i am trying to get the data on the basis of the 
-            index of the first element that has bestProduct:true in it 
-            but the space complexity is very high in it  */}
-
-          {/* {firstIndex !== -1 ? (
-            <div className="w-[25%] mr-[10px]">
-              <img
-                src={products[firstIndex].image}
-                alt={products[firstIndex].name}
-                className="h-[250px]"
-              />
-              <p>{products[firstIndex].name}</p>
-              <p>
-                <s className="pl-[5px]  h-[250px]">$200</s> $175
-              </p>
-            </div>
-          ) : null} */}
-
-          {/* <img src={Image} alt="" srcset="" className=" h-[250px]" /> */}
-          {/* <p>Flat Hill Slingback</p>
-          <p>
-            <s className="pl-[5px]  h-[250px]">$200</s> $175
-          </p> */}
         </div>
         <div className="w-[25%] mr-[10px]">
           {products.map((product, index) =>
@@ -576,28 +496,36 @@ const Men = () => {
 
       {/* Shop By Category  Products starts */}
       <div className="flex items-center justify-center flex-col">
-        <div className="mb-[40px]">
-          {/* <button
-            // className="mr-[30px] focus:underline  focus:underline-offset-4 "
-            className="bg-black text-white mr-2"
+        <div className="mb-10">
+          <button
+            className={`${
+              selectGender === "Women"
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
+          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
             onClick={() => setSelectedGender("Women")}
           >
             For Women
-          </button> */}
-          {/* <button
-            // className="mr-[10px] focus:underline focus:underline-offset-4 bg-black text-white font-semibold py-[8px] px-[16px] rounded"
-            className="bg-black text-white"
+          </button>
+          <button
+            className={`${
+              selectGender === "Men"
+                ? "bg-black text-white"
+                : "bg-white text-black"
+            } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
+          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
             onClick={() => setSelectedGender("Men")}
           >
             For Men
-          </button> */}
+          </button>
         </div>
         <div className="">
-          {/* {category.map((item, index) => (
+          {category.map((item, index) => (
             <button
               key={index}
               className={`${
-                selectcategory === item
+                selectCategory === item
                   ? "bg-black text-white"
                   : "bg-white text-black"
               } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
@@ -606,21 +534,25 @@ const Men = () => {
             >
               {item}
             </button>
-          ))} */}
+          ))}
           <div>
-            {/* {MenProducts[`${selectcategory}`]?.map((product, idx) => (
-              <>
-              <div key={idx}>{product.name}</div>
-              <img src={product.image} alt="" />
-              </>
-
-            ))} */}
+            
+            {categoryData?.map((product, idx) => (
+              <div className="flex">
+                
+                <div key={idx}>{product.name}</div>
+                <img src={product.image} className="w-20 h-20" alt="" />
+                
+                
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Product list */}
+        {/* /* Product list */}
         <div></div>
       </div>
+      {/*Shop By Category  Products Enda  */}
     </div>
   );
 };

@@ -5,31 +5,30 @@ import { useLocation } from "react-router-dom";
 const Product = () => {
   const location = useLocation();
   const { state } = location;
-  // console.log(selectedProduct);
+  console.log("state:",state);
   return (
     <>
       <div className="w-full px-[10%] mt-3">
-        {state.map((items, index) => (
-          <div className="flex" key={index}>
+          <div className="flex">
             <div className="w-1/2">
               <img
-                src={items.image}
-                alt={items.name}
+                src={state.image}
+                alt={state.name}
                 className="w-full h-[370px]"
               />
             </div>
             <div className=" w-1/2">
               <div className="flex  flex-col  ml-10">
-                <h1 className="font-bold text-3xl ">{items.name}</h1>
+                <h1 className="font-bold text-3xl ">{state.name}</h1>
                 <p className="mt-6">
                   <span className="text-gray-400">Brand:</span>Calvin Klein
                 </p>
                 <p className="mt-6">
                   <span className="text-gray-400">Rating:</span>⭐⭐⭐⭐⭐(
-                  {items.rating})
+                  {state.rating})
                 </p>
                 <p>
-                  <s className="pl-[5px]  h-[250px]">{`₹${items.price}`}</s>{"   "}
+                  <s className="pl-[5px]  h-[250px]">{`₹${state.price}`}</s>{"   "}
                   &nbsp;₹199
                 </p>
                 <p className="text-[8px]">Stock Available</p>
@@ -43,12 +42,11 @@ const Product = () => {
                   </button>
                 </div>
                 <p className="mt-10">
-                  <span className="text-gray-400">Category:</span>{items.category}
+                  <span className="text-gray-400">Category:</span>{state.category}
                 </p>
               </div>
             </div>
           </div>
-        ))}
       </div>
     </>
   );
