@@ -18,12 +18,14 @@ import WomenBagPacks from "./Components/Pages/WomenBagPacks";
 import WomenWatches from "./Components/Pages/WomenWatches";
 import WomenShoes from "./Components/Pages/WomenShoes";
 import Understand from "./Components/Pages/Understand";
+import Main from "./Components/Pages/Main";
+import Payment from "./Components/Pages/Payment";
 function App() {
   return (
     <BrowserRouter>
         <Navbar />
   <Routes>
-  <Route path="/" element={<Men />} />
+  <Route path="/" element={<Main />} />
     <Route path="/men" element={<Men />} />
     <Route path="/women" element={<Women />} />
     <Route path="/kids" element={<Kids />} />
@@ -42,6 +44,7 @@ function App() {
     <Route path="/womenwatches" element={<WomenWatches/>}/>
     <Route path="/womenshoes" element={<WomenShoes/>}/>
     <Route path="/understand" element={<Understand/>}/>
+    <Route path="/payment" element={<Payment/>}/>
   </Routes>
     </BrowserRouter>
   );

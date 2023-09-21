@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 // import Image from "../../assets/img/sharp-dress.png";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Products = () => {
   const [items, setItems] = useState([]);
@@ -19,13 +20,16 @@ const Products = () => {
       });
   }, []);
   window.scrollTo(0,0)
+
+  const navigate = useNavigate()
   return (
     <>
       <div className="w-full px-[10%]">
       <h1 className="text-gray-700 font-bold text-3xl text-center">All Products</h1>
         <div className="flex  flex-wrap justify-center w-full">
           {items.map((product, index) => (
-            <div className="w-[30%] m-3 z-40">
+            <div className="w-[30%] m-3 z-40 cursor-pointer" 
+            onClick={() => navigate('/product',{state:product})}>
               <img
                 key={index}
                 src={product.image}

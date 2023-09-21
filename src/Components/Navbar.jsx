@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 const Navbar = () => {
   // const [userData,setUserData] = useState(null)
@@ -13,6 +14,19 @@ const Navbar = () => {
   //   // console.log(userData.user.name)
   // },[])
 
+  const [cartLength,setCartLenght] = useState(null)
+
+  useEffect(()=>{
+    axios.get('http://localhost:4000/api/v1/products')
+    .then((res)=>{
+      // console.log("AllProducts",res.data.products)
+      const value = res.data.products.filter((items) => items.addToCart === true)
+      // console.log("Length:",length)
+      setCartLenght(value.length)
+    }).catch((err)=>{
+      console.log("Error:",err)
+    })
+  },[cartLength])
   return (
     <navbar className="bg-white flex items-center">
       {/* Left side containing logo and links*/}
@@ -80,9 +94,11 @@ const Navbar = () => {
         </Link>
         <Link
           to="/cart"
-          className="text-gray-900 font-bold mx-8 hover:text-gray-400"
+          className="text-gray-900 font-bold mx-8 "
         >
-          Cart
+         <div className="flex cursor-pointer">
+          <span className="mr-1 rounded-[100%] bg-red-400
+           text-white  px-[6px] ">{cartLength}</span> <span>Cart</span> </div>
         </Link>
       </div>
     </navbar>
