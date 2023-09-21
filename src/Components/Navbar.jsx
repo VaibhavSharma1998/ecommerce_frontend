@@ -28,14 +28,13 @@ const Navbar = () => {
     })
   },[cartLength])
   return (
-    <navbar className="bg-white flex items-center">
+    <navbar className="flex justify-between bg-white items-center">
       {/* Left side containing logo and links*/}
       <div className="flex items-center p-8">
         {/* Logo */}
         <Link to="/">
-          <img src={logo} alt="logo" className=" cursor-pointer ml-12 me-4" />
+          <img src={logo} alt="logo" className=" cursor-pointer ml-12 me-4 mr-20" />
         </Link>
-
         <Link
           to="/men"
           className="text-gray-900 font-bold mx-4 hover:text-gray-400"
@@ -68,7 +67,7 @@ const Navbar = () => {
         </Link>
       </div>
       {/* Center conatining the searchbar */}
-      <div className="flex items-center p-8 mx-12">
+      {/* <div className="flex items-center p-8 mx-12">
         <input
           type="search"
           name="Search for products,brands and more"
@@ -76,7 +75,7 @@ const Navbar = () => {
           id=""
           className="bg-gray-100 text-black py-2 px-8 rounded-lg outline-none"
         />
-      </div>
+      </div> */}
 
       {/* right containing signup and card */}
       <div className="flex items-center p-8 ">

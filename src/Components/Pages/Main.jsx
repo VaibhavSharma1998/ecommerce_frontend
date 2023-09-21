@@ -96,7 +96,7 @@ const Main = () => {
         menProducts.filter((item) => item.category === selectCategory)
       );
     }
-  }, []);
+  }, [selectCategory, selectGender, womenProducts, menProducts]);
 
   const navigate = useNavigate();
 

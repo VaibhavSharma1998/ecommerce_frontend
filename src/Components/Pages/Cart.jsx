@@ -20,7 +20,7 @@ const Cart = () => {
       .catch((err) => {
         console.log("Error:", err.msg);
       });
-  }, []);
+  }, [cartItems]);
 
   // const removeFromCart = useEffect((_id) => {
   //   const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
