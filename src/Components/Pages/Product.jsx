@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 // import Image from "../../assets/img/sharp-dress.png";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
@@ -7,10 +7,12 @@ const Product = () => {
   const location = useLocation();
   const { state } = location;
   console.log("state:", state);
+  const [isLoading, setIsLoading] = useState(false);
 
   // state.addToCart = true
 
   const updateData = async () => {
+    setIsLoading(true);
     try {
       // url end point
       const apiUrl = `http://localhost:4000/api/v1/product/${state._id}`;
@@ -28,8 +30,10 @@ const Product = () => {
 
       const response = await axios.put(apiUrl, updatedData);
       console.log("Put response", response.data);
+      setIsLoading(false);
     } catch (err) {
       console.log("Error", err.msg);
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +45,7 @@ const Product = () => {
             <img
               src={state.image}
               alt={state.name}
-              className="w-full h-[370px]"
+              className="w-full h-[370px] object-center"
             />
           </div>
           <div className=" w-1/2">
@@ -54,11 +58,7 @@ const Product = () => {
                 <span className="text-gray-400">Rating:</span>⭐⭐⭐⭐⭐(
                 {state.rating})
               </p>
-              <p>
-                <s className="pl-[5px]  h-[250px]">{`₹${state.price}`}</s>
-                {"   "}
-                &nbsp;₹199
-              </p>
+              <p className="text-xl font-semibold">₹199</p>
               <p className="text-[8px]">Stock Available</p>
               <div>
                 <button
@@ -67,7 +67,7 @@ const Product = () => {
                 hover:bg-black"
                   onClick={() => updateData()}
                 >
-                  Add to cart
+                  {isLoading ? "loading..." : "Add to cart"}
                 </button>
               </div>
               <p className="mt-10">

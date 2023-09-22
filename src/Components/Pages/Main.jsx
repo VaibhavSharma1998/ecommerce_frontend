@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+
 const Main = () => {
   // step 1: create  a state variable
 
@@ -116,16 +117,21 @@ const Main = () => {
   // console.log(categoryData, "categoryData");
 
   return (
-    <div className=" w-full  px-[10%]">
+    <div className=" w-full  px-[10%]  ">
       {/* top main text start */}
       <div
         className="flex justify-center
-       items-center flex-col text-gray-700 my-4"
+       items-center flex-col
+        text-gray-700 my-4 
+        bg-cover bg-center h-64 opacity-80
+       bg-[url('https://res.cloudinary.com/dzmicyc9d/image/upload/v1694716538/products/img/header-bg_lc3vkc.png')]"
       >
-        <p className="font-semibold text-4xl py-4">
+        <p className="font-semibold text-4xl pb-4 mt-32">
           With an outstanding style, only for you
         </p>
-        <p className="font-bold text-7xl py-4">Exclusively designed for you</p>
+        <p className="font-bold text-7xl  mb-20">
+          Exclusively designed for you
+        </p>
       </div>
       {/* Top main text end */}
 
@@ -216,10 +222,10 @@ const Main = () => {
                   alt={product.name}
                   className="h-[250px] cursor-pointer w-full"
                 />
-                <p>{product.name}</p>
+                <p className="text-xl ">{product.name}</p>
                 <p>
                   <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                  ₹199
+                 <span className="font-semibold text-xl "> ₹199</span> 
                 </p>
               </div>
             ) : null
@@ -252,10 +258,10 @@ const Main = () => {
                   alt={product.name}
                   className="h-[250px] cursor-pointer w-full"
                 />
-                <p>{product.name}</p>
+                <p className="text-xl">{product.name}</p>
                 <p>
                   <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                  ₹199
+                  <span className="font-bold text-xl"> ₹121</span> 
                 </p>
               </div>
             ) : null
@@ -285,9 +291,10 @@ const Main = () => {
                   alt={product.image}
                   className="h-[250px]  cursor-pointer w-full"
                 />
-                <p>{`${product.name}`}</p>
+                <p className="text-xl">{`${product.name}`}</p>
                 <p>
-                  <s className="pl-[5px]">{`₹${product.price}`}</s> ₹175
+                  <s className="pl-[5px]">{`₹${product.price}`}</s> 
+                  <span className="font-semibold text-xl"> ₹399</span>
                 </p>
               </div>
             ) : null
@@ -318,9 +325,10 @@ const Main = () => {
                   alt={product.image}
                   className="h-[250px] w-full cursor-pointer"
                 />
-                <p>{product.name}</p>
+                <p className="text-xl">{product.name}</p>
                 <p>
-                  <s className="pl-[5px]">{`₹${product.price}`}</s> ₹175
+                  <s className="pl-[5px]">{`₹${product.price}`}</s>
+                  <span className="font-semibold text-xl"> ₹329</span>
                 </p>
               </div>
             ) : null
@@ -479,65 +487,82 @@ const Main = () => {
 
       {/* checkout images start */}
 
-      <div className="flex items-center"> 
-        <div className="w-[25%] bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4">
+      <div className="flex items-center">
+        <div
+          className="w-[25%] bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+        >
           {products.map((product, index) =>
             product.name === "full body" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-full h-[320px]"
-                
-              />
+              <div onClick={() => navigate("/product", { state: product })}>
+                <img
+                  key={index}
+                  src={product.image}
+                  alt={product.image}
+                  className="w-full h-[320px]"
+                />
+                <h1 className="text-xl">{product.name}</h1>
+                <p className="text-xl font-semibold">{product.price}</p>
+              </div>
             ) : null
           )}
         </div>
-        <div className="w-[25%] bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4">
-          {products.map((product, index) => (
-            
-              product.name === "formal coat" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-full h-[320px]"
-              />
-              ) : null
-           
-          ))}
+        <div
+          className="w-[25%] bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+        >
+          {products.map((product, index) =>
+            product.name === "formal coat" ? (
+              <div onClick={() => navigate("/product", { state: product })}>
+                <img
+                  key={index}
+                  src={product.image}
+                  alt={product.image}
+                  className="w-full h-[320px]"
+                />
+                <h1 className="text-xl">{product.name}</h1>
+                <p className="text-xl font-semibold">{product.price}</p>
+              </div>
+            ) : null
+          )}
         </div>
-        <div className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4">
-          {products.map((product, index) => (
-          
-              product.name === "Ocean blue" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-full h-[320px]"
-              />
-              ) : null
-           
-          ))}
+        <div
+          className="w-[25%]   bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+        >
+          {products.map((product, index) =>
+            product.name === "Ocean blue" ? (
+              <div onClick={() => navigate("/product", { state: product })}>
+                <img
+                  key={index}
+                  src={product.image}
+                  alt={product.image}
+                  className="w-full h-[320px]"
+                />
+                <h1 className="text-xl">{product.name}</h1>
+                <p className="text-xl font-semibold">{product.price}</p>
+              </div>
+            ) : null
+          )}
         </div>
-        <div className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4">
-          {products.map((product, index) => (
-           
-              product.name === "sweater" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-full h-[320px]"
-              />
-              ) : null
-           
-          ))}
+        <div
+          className="w-[25%]   bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+        >
+          {products.map((product, index) =>
+            product.name === "sweater" ? (
+              <div onClick={() => navigate("/product", { state: product })}>
+                <img
+                  key={index}
+                  src={product.image}
+                  alt={product.image}
+                  className="w-full h-[320px]"
+                />
+                <h1 className="text-xl">{product.name}</h1>
+                <p className="text-xl font-semibold">{product.price}</p>
+              </div>
+            ) : null
+          )}
         </div>
       </div>
       {/* checkout images end */}
@@ -551,7 +576,7 @@ const Main = () => {
       {/*  Shop By Category text end*/}
 
       {/* Shop By Category  Products starts */}
-      <div className="flex items-center justify-center flex-col">
+      <div className="flex items-center justify-center ">
         <div className="mb-10">
           <button
             className={`${
@@ -564,19 +589,23 @@ const Main = () => {
           >
             For Women
           </button>
+        </div>
+        <div className="mb-10">
           <button
             className={`${
               selectGender === "Men"
                 ? "bg-black text-white"
                 : "bg-white text-black"
             } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
-          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
+          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded justify-center items-cenetr flex`}
             onClick={() => setSelectedGender("Men")}
           >
             For Men
           </button>
         </div>
-        <div className="">
+      </div>
+      <div className="mb-10">
+        <div className="flex items-center justify-center">
           {category.map((item, index) => (
             <button
               key={index}
@@ -591,19 +620,32 @@ const Main = () => {
               {item}
             </button>
           ))}
-          <div>
-            {categoryData?.map((product, idx) => (
-              <div className="flex">
-                <div key={idx}>{product.name}</div>
-                <img src={product.image} className="w-20 h-20" alt="" />
+        </div>
+        <div>
+          <div className="flex items-center justify-center">
+            {categoryData?.map((product, index) => (
+              <div
+                className=" bg-[#dedede] 
+              rounded-md p-2 cursor-pointer mt-5 mr-4 w-[20%]"
+                onClick={() => {
+                  navigate("/product", { state: product });
+                }}
+              >
+                <div key={index}>
+                  <img
+                    src={product.image}
+                    className="w-full  h-60"
+                    alt={product.name}
+                  />
+                  <p className="text-xl">{product.name}</p>
+                  <p className="text-xl font-semibold">{product.price}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* /* Product list */}
-        <div></div>
       </div>
+
       {/*Shop By Category  Products Enda  */}
     </div>
   );

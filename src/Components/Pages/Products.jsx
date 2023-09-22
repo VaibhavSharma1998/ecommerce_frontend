@@ -19,32 +19,32 @@ const Products = () => {
         console.log("can-not get the data", err);
       });
   }, []);
-  window.scrollTo(0,0)
+  window.scrollTo(0, 0);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <>
       <div className="w-full px-[10%]">
-      <h1 className="text-gray-700 font-bold text-3xl text-center">All Products</h1>
+        <h1 className="text-gray-700 font-bold text-3xl text-center">
+          All Products
+        </h1>
         <div className="flex  flex-wrap justify-center w-full">
           {items.map((product, index) => (
-            <div className="w-[30%] m-3 z-40 cursor-pointer" 
-            onClick={() => navigate('/product',{state:product})}>
+            <div
+              className="w-[30%] m-3 z-40 cursor-pointer"
+              onClick={() => navigate("/product", { state: product })}
+            >
               <img
                 key={index}
                 src={product.image}
                 alt=""
                 className="w-full h-[400px] object-cover"
               />
-              <p className="my-2 pl-2">{product.name}</p>
-              <p className="my-2 pl-2">
-                <s>{`₹ ${product.price}`}</s> ₹199
-              </p>
+              <p className="my-2 pl-2 text-xl">{product.name}</p>
+              <p className="my-2 pl-2 font-semibold text-xl">{`₹ ${product.price}`}</p>
             </div>
           ))}
-         
         </div>
-        
       </div>
     </>
   );

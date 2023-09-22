@@ -32,9 +32,9 @@ const Women = () => {
               className="w-full h-96 cursor-pointer" 
               
             />
-            <p className="mt-3">{items.name}</p>
-            <p>
-              <s className="pl-[5px]  h-[250px]">{`₹${items.price}`}</s> ₹199
+            <p className="mt-3 text-xl">{items.name}</p>
+            <p className="text-xl font-semibold">
+              {`₹${items.price}`}
             </p>
           </div>
         ))}
