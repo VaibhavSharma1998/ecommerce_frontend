@@ -19,6 +19,7 @@ const Products = () => {
         console.log("can-not get the data", err);
       });
   }, []);
+
   window.scrollTo(0, 0);
 
   const navigate = useNavigate();

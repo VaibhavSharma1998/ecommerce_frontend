@@ -2,17 +2,19 @@ import React,{useState,useEffect} from "react";
 import logo from "../assets/img/logo.png";
 import { Link } from "react-router-dom";
 import axios from 'axios';
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  // const [userData,setUserData] = useState(null)
+  const cart = useSelector((state) => state.cart);
+  // const [cartLength,setCartLenght] = useState(null)
 
-  // useEffect(()=>{
-  //   const storeData = localStorage.getItem('data')
-  //   const parsedData = JSON.parse(storeData)
-  //   console.log(parsedData);
-  //   // setUserData(parsedData)
-  //   // console.log(userData.user.name)
-  // },[])
+  useEffect(()=>{
+    const storeData = localStorage.getItem('data')
+    const parsedData = JSON.parse(storeData)
+    console.log(parsedData);
+    // setUserData(parsedData)
+    // console.log(userData.user.name)
+  },[])
 
   const [cartLength,setCartLenght] = useState(null)
 
@@ -21,19 +23,26 @@ const Navbar = () => {
     .then((res)=>{
       // console.log("AllProducts",res.data.products)
       const value = res.data.products.filter((items) => items.addToCart === true)
-      // console.log("Length:",length)
+      console.log("Length:",value)
       setCartLenght(value.length)
     }).catch((err)=>{
       console.log("Error:",err)
     })
-  },[cartLength])
+  },[cart])
+
+  // scroll to top
+  window.scroll(0,0)
   return (
     <navbar className="flex justify-between bg-white items-center">
       {/* Left side containing logo and links*/}
       <div className="flex items-center p-8">
         {/* Logo */}
         <Link to="/">
-          <img src={logo} alt="logo" className=" cursor-pointer ml-12 me-4 mr-20" />
+          <img
+            src={logo}
+            alt="logo"
+            className=" cursor-pointer ml-12 me-4 mr-20"
+          />
         </Link>
         <Link
           to="/men"
@@ -91,13 +100,17 @@ const Navbar = () => {
           {" "}
           Login
         </Link>
-        <Link
-          to="/cart"
-          className="text-gray-900 font-bold mx-8 "
-        >
-         <div className="flex cursor-pointer">
-          <span className="mr-1 rounded-[100%] bg-red-400
-           text-white  px-[6px] ">{cartLength}</span> <span>Cart</span> </div>
+        <Link to="/cart" className="text-gray-900 font-bold mx-8 ">
+          <div className="flex cursor-pointer">
+            <span
+              className="mr-1 rounded-[100%] bg-red-400
+           text-white  px-[6px] "
+            >
+              {/* {cart.length} */}
+              {cartLength}
+            </span>{" "}
+            <span>Cart</span>{" "}
+          </div>
         </Link>
       </div>
     </navbar>

@@ -2,8 +2,12 @@ import { useState } from "react";
 // import Image from "../../assets/img/sharp-dress.png";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addToCart } from "./store/reducers/cartReducer";
 
 const Product = () => {
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const { state } = location;
   console.log("state:", state);
@@ -30,11 +34,34 @@ const Product = () => {
 
       const response = await axios.put(apiUrl, updatedData);
       console.log("Put response", response.data);
+      // Dispatch the addToCart action with the product data
+      dispatch(addToCart(state));
+
       setIsLoading(false);
+
+      if (state) {
+        const apiUrl = `http://localhost:4000/api/v1/product/${state._id}`;
+        const updatedData = {
+          addToCart: true,
+        };
+
+        const response = await axios.put(apiUrl, updatedData);
+        console.log("Put response", response.data);
+        setIsLoading(false);
+      } else {
+        // Handle the case where 'state' is undefined
+        console.log("Error: 'state' is undefined");
+        setIsLoading(false);
+      }
     } catch (err) {
       console.log("Error", err.msg);
       setIsLoading(false);
     }
+  };
+
+  const addToCartHandler = () => {
+    // Dispatch the addToCart action with the product data (state)
+    dispatch(addToCart(state));
   };
 
   return (
@@ -66,6 +93,7 @@ const Product = () => {
                 px-10 text-white rounded 
                 hover:bg-black"
                   onClick={() => updateData()}
+                  // onClick={addToCartHandler}
                 >
                   {isLoading ? "loading..." : "Add to cart"}
                 </button>
