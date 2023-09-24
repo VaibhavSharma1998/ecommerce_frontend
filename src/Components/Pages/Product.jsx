@@ -16,6 +16,7 @@ const Product = () => {
   // state.addToCart = true
 
   const handleUpdateData = async () => {
+    
     setIsLoading(true);
     try {
       // url end point

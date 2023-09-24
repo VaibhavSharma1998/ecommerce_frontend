@@ -1,33 +1,13 @@
-import React,{useState} from "react";
+import React from "react";
 
 const Kids = () => {
-  const [car,setCar] = useState({
-    name:"Range Rover",
-    brand:"Land Rover",
-    model:2023,
-    color:"black"
-  })
-  const [color, setColor] = useState("black")
-  const handleColor = () =>{
-    setColor("white")
-    // setCar(previousState => {
-    //   const changeColor = previousState.color ==="black" ? "white" :"black"
-    //   return {...previousState,color:changeColor}
-    // })
-    setCar((previosState)=>{
-      const newColor = previosState.color === "balck" ?"white":"black"
-      return {...previosState,color:newColor}
-    })
-  }
-  console.log(car)
   return (
-    <div>
-     <p>The color of the car is <span className="text-2xl">{color }</span></p>
-     <button onClick={handleColor} className="bg-black text-white py-2 px-4">Change Color</button>
-     
+    <div className="flex justify-center items-center  flex-col relative min-h-screen w-full overscroll-y-none">
+      <div className="text-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-120%]">
+        <p className="font-bold text-8xl text-gray-700 h-full"> Coming Soon</p>
+        <p className="mt-4 text-[#4B527E]">Our Kids Products are coming soon...</p>
+      </div>
     </div>
-      //  const shoeData = res.data.products.filter((item) => (item.category === "shoes"))
-      //  setShoe(shoeData)
   );
 };
 

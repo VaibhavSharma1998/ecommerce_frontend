@@ -13,6 +13,10 @@ export const removeItemFromCartAsync = createAsyncThunk(
       };
       const response = await axios.put(apiUrl, updatedData);
 
+      // Note:Below code also working
+      
+      // const response = await axios.put(apiUrl, {addToCart: false})
+
       return _id; // Return the _id of the removed item
     } catch (error) {
       console.error("Error removing item from cart:", error);
