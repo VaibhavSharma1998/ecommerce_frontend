@@ -6,13 +6,16 @@ const Outlet = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      setCount((count) => count + 1);
+      setCount((count) => count + 3);
     }, 1000);
   }, []);
+
+  const handleClick = () => setCount(count +1 )
   return (
     <div>
       <h1>Checking! {count}</h1>
-      <button onClick={() => setCount(count + 1)}>+</button>
+      
+      <button onClick={handleClick} className="py-2 px-4 text-white bg-black rounded">Add one </button>
     </div>
   );
 };

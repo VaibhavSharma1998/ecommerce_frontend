@@ -16,7 +16,7 @@ const Navbar = () => {
     // console.log(userData.user.name)
   },[])
 
-  const [cartLength,setCartLenght] = useState(null)
+  const [cartLength,setCartLenght] = useState(0)
 
   useEffect(()=>{
     axios.get('http://localhost:4000/api/v1/products')

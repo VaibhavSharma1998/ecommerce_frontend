@@ -35,7 +35,7 @@ const Main = () => {
         setProducts(res.data.products);
         // shoe category data fetching
 
-        const shoeData = res.data.products.filter(
+        const shoeData = res.data.products.filter( 
           (item) => item.category === "shoes" && item.role === "women"
         );
         setWomenShoes(shoeData);

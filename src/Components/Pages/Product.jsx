@@ -15,7 +15,7 @@ const Product = () => {
 
   // state.addToCart = true
 
-  const updateData = async () => {
+  const handleUpdateData = async () => {
     setIsLoading(true);
     try {
       // url end point
@@ -92,7 +92,7 @@ const Product = () => {
                   className="mt-6 bg-gray-700 py-2 
                 px-10 text-white rounded 
                 hover:bg-black"
-                  onClick={() => updateData()}
+                  onClick={ handleUpdateData}
                   // onClick={addToCartHandler}
                 >
                   {isLoading ? "loading..." : "Add to cart"}

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { removeItemFromCartAsync } from "./store/reducers/cartReducer";
 
 const Cart = () => {
+  console.log('Check console')
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -20,7 +23,10 @@ const Cart = () => {
       .catch((err) => {
         console.log("Error:", err.msg);
       });
-  }, []);
+  }, [cartItems]);
+  // Note this point:
+  
+  // cartItems == add this inside the dependency array to remove the the items from cart
 
   // const removeFromCart = useEffect((_id) => {
   //   const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
@@ -41,25 +47,35 @@ const Cart = () => {
   // });
 
   // Function to remove an item from the cart
-  const removeFromCart = (_id) => {
-    const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
-    axios
-      .put(ApiUrl, {
-        addToCart: false,
-      })
-      .then((res) => {
-        console.log("Remove from cart:", res.data);
-        // Remove the item from the local cartItems state using _id
-        setCartItems((prevCartItems) =>
-          prevCartItems.filter((cartItem) => cartItem._id !== _id)
-        );
-      })
-      .catch((err) => {
-        console.log("Error:", err.message);
-      });
+
+  // const removeFromCart = (_id) => {
+  //   const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
+  //   axios
+  //     .put(ApiUrl, {
+  //       addToCart: false,
+  //     })
+  //     .then((res) => {
+  //       console.log("Remove from cart:", res.data);
+  //       // Remove the item from the local cartItems state using _id
+  //       setCartItems((prevCartItems) =>
+  //         prevCartItems.filter((cartItem) => cartItem._id !== _id)
+  //       );
+  //     })
+  //     .catch((err) => {
+  //       console.log("Error:", err.message);
+  //     });
+  // };
+
+  // Using the removeFromCart action
+  const dispatch = useDispatch();
+  const removeFromCartHandler = (_id) => {
+    // Dispatch the async action to remove the item from the cart
+    dispatch(removeItemFromCartAsync(_id));
   };
 
   console.log("cartItems:", cartItems.length, cartItems);
+
+  // console.log("cartItems:", cartItems.length, cartItems);
   const navigate = useNavigate();
 
   return (
@@ -104,7 +120,8 @@ const Cart = () => {
                   className="mt-6 bg-gray-700 py-2 
               px-10 text-white rounded 
               hover:bg-black"
-                  onClick={() => removeFromCart(items._id)}
+                  // onClick={() => removeFromCart(items._id)}
+                  onClick={ () => removeFromCartHandler(items._id)}
                 >
                   Remove
                 </button>
@@ -117,7 +134,8 @@ const Cart = () => {
           </div>
         </div>
       ))}
-      <p>vaibhav </p>
+      <p>vaibhav  </p> 
+   
     </div>
   );
 };
