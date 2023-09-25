@@ -14,7 +14,7 @@ export const removeItemFromCartAsync = createAsyncThunk(
       const response = await axios.put(apiUrl, updatedData);
 
       // Note:Below code also working
-      
+
       // const response = await axios.put(apiUrl, {addToCart: false})
 
       return _id; // Return the _id of the removed item
@@ -31,7 +31,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       // Add the product to the cart
-      state.push(action.payload);
+      state.unshift(action.payload);
     },
     removeFromCart: (state, action) => {
       // Remove the product from the cart by its ID
