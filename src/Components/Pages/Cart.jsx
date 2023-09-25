@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { removeItemFromCartAsync } from "./store/reducers/cartReducer";
 
 const Cart = () => {
-  console.log('Check console')
+  console.log("Check console");
   const [cartItems, setCartItems] = useState([]);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ const Cart = () => {
       });
   }, [cartItems]);
   // Note this point:
-  
+
   // cartItems == add this inside the dependency array to remove the the items from cart
 
   // const removeFromCart = useEffect((_id) => {
@@ -108,22 +108,22 @@ const Cart = () => {
               <p className="text-[8px]">Stock Available</p>
               <div>
                 <button
-                  className="mt-6 bg-gray-700 py-2 
-              px-10 text-white rounded 
-              hover:bg-black mr-4"
-                  onClick={() => navigate("/payment")}
+                  className="mt-6 bg-gray-500 py-2 
+                  px-10 text-white rounded 
+                  hover:bg-gray-700 mr-4"
+                  // onClick={() => removeFromCart(items._id)}
+                  onClick={() => removeFromCartHandler(items._id)}
                 >
-                  Buy Now
+                  Remove
                 </button>
 
                 <button
-                  className="mt-6 bg-gray-700 py-2 
-              px-10 text-white rounded 
-              hover:bg-black"
-                  // onClick={() => removeFromCart(items._id)}
-                  onClick={ () => removeFromCartHandler(items._id)}
+                  className="mt-6 bg-gray-900 py-2 
+                  px-10 text-white rounded 
+                  hover:bg-black mr-4"
+                  onClick={() => navigate("/payment")}
                 >
-                  Remove
+                  Buy Now
                 </button>
               </div>
               <p className="mt-10">
@@ -134,8 +134,6 @@ const Cart = () => {
           </div>
         </div>
       ))}
-      <p>vaibhav  </p> 
-   
     </div>
   );
 };

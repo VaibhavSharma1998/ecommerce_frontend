@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import Image from "../../assets/img/sharp-dress.png";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./store/reducers/cartReducer";
@@ -16,7 +16,7 @@ const Product = () => {
   // state.addToCart = true
 
   const handleUpdateData = async () => {
-    
+
     setIsLoading(true);
     try {
       // url end point
@@ -60,10 +60,12 @@ const Product = () => {
     }
   };
 
-  const addToCartHandler = () => {
-    // Dispatch the addToCart action with the product data (state)
-    dispatch(addToCart(state));
-  };
+  // const addToCartHandler = () => {
+  //   // Dispatch the addToCart action with the product data (state)
+  //   dispatch(addToCart(state));
+  // };
+
+  const navigate = useNavigate()
 
   return (
     <>
@@ -88,15 +90,23 @@ const Product = () => {
               </p>
               <p className="text-xl font-semibold">₹199</p>
               <p className="text-[8px]">Stock Available</p>
-              <div>
+              <div className="flex">
                 <button
-                  className="mt-6 bg-gray-700 py-2 
+                  className="mt-6 bg-gray-500 py-2 
                 px-10 text-white rounded 
-                hover:bg-black"
-                  onClick={ handleUpdateData}
+                hover:bg-gray-700 mr-4"
+                  onClick={ () => {handleUpdateData() ; navigate('/cart')}}
                   // onClick={addToCartHandler}
                 >
                   {isLoading ? "loading..." : "Add to cart"}
+                </button>
+                <button
+                  className="mt-6 bg-gray-900 py-2 
+              px-10 text-white rounded 
+              hover:bg-black mr-4"
+                  onClick={() => navigate("/payment")}
+                >
+                  Buy Now
                 </button>
               </div>
               <p className="mt-10">

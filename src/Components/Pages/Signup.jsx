@@ -1,45 +1,53 @@
-import React from 'react'
-import logo from '../../assets/img/logo.png'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from "react";
+import logo from "../../assets/img/logo.png";
+import { useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm } from "react-hook-form";
 // import axios from 'axios'
-import { register } from '../services/userServices'
-import *  as yup from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup';
+import { register } from "../services/userServices";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 // validationSchema using yup step 1
 
 const validationSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required("Name is required")
+    .min(3, "Name should contain minimum of 3 characters"),
 
-  name: yup.string().required('Name is required')
-    .min(3, 'Name should contain minimum of 3 characters'),
-
-  email: yup.string().required('Email is required')
-    .test(
-      'is-gmail',
-      'email must be in Gmail address',
-      (value) => value.endsWith('@gmail.com')
+  email: yup
+    .string()
+    .required("Email is required")
+    .test("is-gmail", "email must be in Gmail address", (value) =>
+      value.endsWith("@gmail.com")
     ),
 
-  password: yup.string().required('password is required')
-    .min(8, 'password should contain minimum 8 characters'),
+  password: yup
+    .string()
+    .required("password is required")
+    .min(8, "password should contain minimum 8 characters"),
 
-  confirmPassword: yup.string()
-    .required('confirmPassword is required')
-    .oneOf([yup.ref('password'), null], 'Password must match')
-})
-
+  confirmPassword: yup
+    .string()
+    .required("confirmPassword is required")
+    .oneOf([yup.ref("password"), null], "Password must match"),
+});
 
 const Signup = () => {
+  const [isLoading, setIsLoading] = useState(false);
 
   // step 2:initialize react-form-hook with resolver
-  const { control, handleSubmit,
-    formState: { errors }, reset } = useForm({
-      resolver: yupResolver(validationSchema)
-    })
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // const onSubmit = async (data) => {
   //   try {
@@ -54,87 +62,100 @@ const Signup = () => {
   //   }
   // };
 
+  const onSubmit = (data) => {
+    setIsLoading(true);
+    register(data)
+      .then(() => {
+        // register succesful
+        alert("Registration successful!");
+        reset();
+        navigate("/login");
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        // Registration failed
 
- const onSubmit = (data) =>{
-    register(data).then(()=>{
-      // register succesful
-      alert('Registration successful!')
-      reset()
-      navigate('/login')
-    })
-    .catch((error)=>{
-      // Registration failed
-      console.log('Error',error)
-      alert('Registration failed. Please try again.')
-    })
- }
-    
+        console.log("Error", error);
+        alert("Registration failed. Please try again.");
+        setIsLoading(false);
+      });
+  };
 
   return (
     // main conatiner div
-    <div className='flex items-center justify-center flex-col   '>
-
+    <div className="flex items-center justify-center flex-col   ">
       {/* div for  logo and name of the website */}
-      <div className='flex items-center w-[25rem]   
-      flex-col justify-center bg-gray-400 pt-4'>
+      <div
+        className="flex items-center w-[25rem]   
+      flex-col justify-center bg-gray-400 pt-4"
+      >
         {/* Use flex items-center to align image and text */}
-        <img src={logo} alt="Website logo" style={{ display: 'block' }} />
+        <img src={logo} alt="Website logo" style={{ display: "block" }} />
         {/* Set image to inline-block */}
-        <h3 className='pt-2'>Majestic</h3>
+        <h3 className="pt-2">Majestic</h3>
         {/* Add some margin-left for spacing */}
-
       </div>
 
-
       {/* div for form and sign up  button */}
-      <div className='flex  items-center w-[25rem]   
-      flex-col justify-center bg-gray-400 '>
+      <div
+        className="flex  items-center w-[25rem]   
+      flex-col justify-center bg-gray-400 "
+      >
         {/* step4:added the onSubmit handler to the form */}
 
-        <form className='mx-5' onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="name" className='block'>Name <span className='text-red-600'> *</span></label>
+        <form className="mx-5" onSubmit={handleSubmit(onSubmit)}>
+          <label htmlFor="name" className="block">
+            Name <span className="text-red-600"> *</span>
+          </label>
 
           <Controller
             name="name"
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <input type="text"
-                // name="name" 
+              <input
+                type="text"
+                // name="name"
                 id="name"
-                className='block mt-2  bg-gray-100
+                className="block mt-2  bg-gray-100
                          text-black 
                          py-2 px-4 rounded-lg 
-                          outline-none w-80 text-red '
+                          outline-none w-80 text-red "
                 {...field}
-
               />
             )}
           />
-          {errors.name && <p className='text-red-600'>{errors.name.message}</p>}
+          {errors.name && <p className="text-red-600">{errors.name.message}</p>}
 
           {/* step 5: Usecontroller for input fields */}
 
-          <label htmlFor="email" className='block  '> Email<span className='text-red-600'> *</span></label>
+          <label htmlFor="email" className="block  ">
+            {" "}
+            Email<span className="text-red-600"> *</span>
+          </label>
           <Controller
             name="email"
             control={control}
-            defaultValue=''
+            defaultValue=""
             render={({ field }) => (
-              <input type="email"
+              <input
+                type="email"
                 id="email"
-                className='block mt-2  bg-gray-100
+                className="block mt-2  bg-gray-100
                         text-black py-2 
                         px-4 rounded-lg 
-                        outline-none w-80 '                       
+                        outline-none w-80 "
                 {...field}
-
-               />
+              />
             )}
           />
-          {errors.email && <p className='text-red-600'>{errors.email.message}</p>}
+          {errors.email && (
+            <p className="text-red-600">{errors.email.message}</p>
+          )}
 
-          <label htmlFor="password" className='block '>Password<span className='text-red-600'> *</span></label>
+          <label htmlFor="password" className="block ">
+            Password<span className="text-red-600"> *</span>
+          </label>
 
           <Controller
             name="password"
@@ -143,74 +164,89 @@ const Signup = () => {
             render={({ field }) => (
               <input
                 type="password"
-
                 id="password"
-                className='block mt-2 
+                className="block mt-2 
                bg-gray-100 text-black
                py-2 px-4 rounded-lg
-                outline-none w-80 '
+                outline-none w-80 "
                 {...field}
-                 />
-
+              />
             )}
           />
-          {errors.password && <p className='text-red-600'>{errors.password.message}</p>}
+          {errors.password && (
+            <p className="text-red-600">{errors.password.message}</p>
+          )}
 
-          <label htmlFor="name"
-            className='block'>
-            Confirm Password<span className='text-red-600'> *</span></label>
+          <label htmlFor="name" className="block">
+            Confirm Password<span className="text-red-600"> *</span>
+          </label>
 
           <Controller
             name="confirmPassword"
             control={control}
             defaultValue=""
             render={({ field }) => (
-              <input type="password"
-                // name="confirmPassword" 
+              <input
+                type="password"
+                // name="confirmPassword"
                 id="confirmPassword"
-                className='block mt-2  bg-gray-100
+                className="block mt-2  bg-gray-100
                  text-black 
-                py-2 px-4 rounded-lg outline-none w-80 '
-
+                py-2 px-4 rounded-lg outline-none w-80 "
                 {...field}
                 // onChange={handleChange}
                 // value={formData.confirmPassword}
-               
               />
             )}
-
           />
-          {errors.confirmPassword && <p className='text-red-600'>
-            {errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && (
+            <p className="text-red-600">{errors.confirmPassword.message}</p>
+          )}
 
-          <input type="submit" value="Sign Up"
-            className='bg-black  text-white w-80 
-            rounded-3xl py-2 px-4 mt-2 cursor-pointer' />
-
+          <input
+            type="submit"
+            value={isLoading ? "loading..." : "Sign Up"}
+            className="bg-black  text-white w-80 
+            rounded-3xl py-2 px-4 mt-2 cursor-pointer"
+          />
         </form>
       </div>
 
       {/* div for social media handle */}
 
-      <div className="flex items-center w-[25rem]   
-      flex-col justify-center bg-gray-400 pb-4">
-        <h1 style={{ margin: 'auto' }} className='pt-4'>OR</h1>
-        <div className="flex items-center 
+      <div
+        className="flex items-center w-[25rem]   
+      flex-col justify-center bg-gray-400 pb-4"
+      >
+        <h1 style={{ margin: "auto" }} className="pt-4">
+          OR
+        </h1>
+        <div
+          className="flex items-center 
         justify-center
         rounded-3xl
          py-2 px-4 mt-2 cursor-pointer
-         bg-gray-300  text-black w-80 ">
-          <FcGoogle className='mr-2' />
-          <input type="submit" value={`Continue with google`} 
-          className='mr-4 ' />
+         bg-gray-300  text-black w-80 "
+        >
+          <FcGoogle className="mr-2" />
+          <input
+            type="submit"
+            value={`Continue with google`}
+            className="mr-4 "
+          />
         </div>
-        <p className='pt-3'>Already have an account?
-          <span className='text-gray-900 font-bold cursor-pointer'
-            onClick={() => navigate('/login')}>login in</span></p>
+        <p className="pt-3">
+          Already have an account?
+          <span
+            className="text-gray-900 font-bold cursor-pointer"
+            onClick={() => navigate("/login")}
+          >
+            login in
+          </span>
+        </p>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
-export default Signup
+export default Signup;
