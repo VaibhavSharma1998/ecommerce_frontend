@@ -25,7 +25,7 @@ const Cart = () => {
       .catch((err) => {
         console.log("Error:", err.msg);
       });
-  }, [cartItems]);
+  }, []);
   // Note this point:
 
   // cartItems == add this inside the dependency array to remove the the items from cart
@@ -138,7 +138,7 @@ const Cart = () => {
                     className="mt-6 bg-gray-900 py-2 
                   px-10 text-white rounded 
                   hover:bg-black mr-4"
-                    onClick={() => navigate("/payment")}
+                    onClick={() => navigate("/payment",{state:`₹${items.price}`})}
                   >
                     Buy Now
                   </button>
@@ -173,7 +173,7 @@ const Cart = () => {
             <p className="ml-8 font-bold text-1xl">₹{subTotal}</p>
           </div>
           <button className="py-4 px-10 text-white 
-          bg-[#FB641B] hover:bg-[#C63D2F]" onClick={()=>navigate('/payment')}>Place Order</button>
+          bg-[#FB641B] hover:bg-[#C63D2F]" onClick={()=>navigate('/payment',{state:`₹${subTotal}`})}>Place Order</button>
         </div>
       </div>
        {/* Price Details section ends  */}

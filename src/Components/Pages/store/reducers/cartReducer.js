@@ -12,6 +12,7 @@ export const removeItemFromCartAsync = createAsyncThunk(
         addToCart: false,
       };
       const response = await axios.put(apiUrl, updatedData);
+      console.log("ResponseData:",response.data)
 
       // Note:Below code also working
 
@@ -35,9 +36,10 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       // Remove the product from the cart by its ID
-      return state.filter((item) => item._id !== action.payload);
+      return state.filter((item) => item._id !== action.payload)
     },
   },
+  // section is used to handle the result of asynchronous actions without this the value in the navbar is not updated
   extraReducers: (builder) => {
     builder.addCase(removeItemFromCartAsync.fulfilled, (state, action) => {
       // Remove the item from the local cartItems state using _id
@@ -46,5 +48,8 @@ const cartSlice = createSlice({
   },
 });
 
+
+// exporting action creators that tells what to do 
 export const { addToCart, removeFromCart } = cartSlice.actions;
+// exporting action creators that tells how to do
 export default cartSlice.reducer;

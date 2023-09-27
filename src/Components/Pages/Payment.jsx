@@ -1,45 +1,52 @@
-import React, { useState, useEffect } from "react";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import CheckoutForm from "./CheckoutForm";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
+
 
 const Payment = () => {
-  const [data, setData] = useState([]);
-
-  const getData = () => {
-    axios
-      .get("http://localhost:4000/api/v1/products")
-      .then((res) => {
-        console.log("Data:", res.data);
-        localStorage.setItem("apiData", JSON.stringify(res.data.products));
-        setData(res.data.products);
-      })
-      .catch((err) => {
-        console.log("Error:", err);
-      });
-  };
+  const location = useLocation()
+  const {state} = location
+  console.log("Paisa",state)
+  const [stripePromise, setStripePromise] = useState(null);
+  const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
-    // localStorage.getItem("apiData")
-    const storedData = localStorage.getItem("apiData");
-    if (storedData) {
-      setData(JSON.parse(storedData));
-    }
+    axios
+      .get("http://localhost:4000/config")
+      .then(async (res) => {
+        const { publishableKey } = await res.data;
+        console.log("Publickey:", res);
+        setStripePromise(loadStripe(publishableKey));
+      })
+      .catch((err) => {
+        console.log("Error:", err.msg);
+      });
   }, []);
 
+  useEffect(() => {
+    axios
+      .post("http://localhost:4000/create-payment-intent", {})
+      .then(async (res) => {
+        const { clientSecret } = await res.data;
+        console.log("Secretkey:", clientSecret);
+        setClientSecret(clientSecret);
+      })
+      .catch((err) => {
+        console.log("Error:", err.msg);
+      });
+  }, []);
+  console.log(stripePromise, "stripePromise");
   return (
-    <div>
-      <h1>Payment page yet to made</h1>
-      <button
-        onClick={getData}
-        className="bg-black text-white py-2 px-4 mt-4 rounded"
-      >
-        Get Data{""}
-      </button>
-      <div>
-        {data.map((product, index) => (
-          <img src={product.image} alt="" />
-        ))}
-      </div>
-    </div>
+    <>
+      {stripePromise && clientSecret && (
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <CheckoutForm  state={state}/>
+        </Elements>
+      )}
+    </>
   );
 };
 
