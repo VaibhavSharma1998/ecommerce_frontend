@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { removeItemFromCartAsync } from "./store/reducers/cartReducer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   console.log("Check console");
@@ -19,13 +21,13 @@ const Cart = () => {
           (item) => item.addToCart === true
         );
         // setCartItems((previosCartItms)=> [cartData,...previosCartItms]);
-        setCartItems(cartData)
+        setCartItems(cartData);
         console.log("cartData:", cartData.length, cartData);
       })
       .catch((err) => {
         console.log("Error:", err.msg);
       });
-  }, []);
+  }, [cartItems]);
   // Note this point:
 
   // cartItems == add this inside the dependency array to remove the the items from cart
@@ -94,6 +96,18 @@ const Cart = () => {
   // console.log("cartItems:", cartItems.length, cartItems);
   const navigate = useNavigate();
 
+  const notify = () =>
+    toast.error("Item Removed!", {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+
   return (
     <div className="flex w-full px-[10%] mt-5 relative">
       <div className="w-[75%]">
@@ -117,11 +131,7 @@ const Cart = () => {
                   <span className="text-gray-400">Rating:</span>⭐⭐⭐⭐⭐(
                   {items.rating})
                 </p>
-                <p>
-                  <s className="pl-[5px]  h-[250px]">{`₹${items.price}`}</s>
-                  {"   "}
-                  &nbsp;₹199
-                </p>
+                <p className="pl-[5px]">{`₹${items.price}`}</p>
                 <p className="text-[8px]">Stock Available</p>
                 <div>
                   <button
@@ -129,7 +139,10 @@ const Cart = () => {
                   px-10 text-white rounded 
                   hover:bg-gray-700 mr-4"
                     // onClick={() => removeFromCart(items._id)}
-                    onClick={() => removeFromCartHandler(items._id)}
+                    onClick={() => {
+                      removeFromCartHandler(items._id);
+                      notify();
+                    }}
                   >
                     Remove
                   </button>
@@ -138,10 +151,24 @@ const Cart = () => {
                     className="mt-6 bg-gray-900 py-2 
                   px-10 text-white rounded 
                   hover:bg-black mr-4"
-                    onClick={() => navigate("/payment",{state:`₹${items.price}`})}
+                    onClick={() =>
+                      navigate("/payment", { state: `₹${items.price}` })
+                    }
                   >
                     Buy Now
                   </button>
+                  <ToastContainer
+                    position="bottom-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="dark"
+                  />
                 </div>
                 <p className="mt-10">
                   <span className="text-gray-400">Category:</span>
@@ -155,7 +182,9 @@ const Cart = () => {
       {/* Price Details section starts  */}
       <div className="w-[25%] borde sticky top-10 h-20">
         <div className="flex flex-col w-full justify-center pl-5 ">
-          <p className="mb-5  font-bold text-2xl text-gray-700">Price Details</p>
+          <p className="mb-5  font-bold text-2xl text-gray-700">
+            Price Details
+          </p>
           <div className="flex mb-5">
             <p className="mr-14">{`Price (${cartItems.length}) items`}</p>
             <p> ₹{subTotal}</p>
@@ -172,11 +201,16 @@ const Cart = () => {
             <p className="mr-14 font-bold text-1xl">Total Price</p>
             <p className="ml-8 font-bold text-1xl">₹{subTotal}</p>
           </div>
-          <button className="py-4 px-10 text-white 
-          bg-[#FB641B] hover:bg-[#C63D2F]" onClick={()=>navigate('/payment',{state:`₹${subTotal}`})}>Place Order</button>
+          <button
+            className="py-4 px-10 text-white 
+          bg-[#FB641B] hover:bg-[#C63D2F]"
+            onClick={() => navigate("/payment", { state: `₹${subTotal}` })}
+          >
+            Place Order
+          </button>
         </div>
       </div>
-       {/* Price Details section ends  */}
+      {/* Price Details section ends  */}
     </div>
   );
 };

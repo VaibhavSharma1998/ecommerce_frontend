@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./store/reducers/cartReducer";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -16,7 +18,6 @@ const Product = () => {
   // state.addToCart = true
 
   const handleUpdateData = async () => {
-
     setIsLoading(true);
     try {
       // url end point
@@ -65,7 +66,18 @@ const Product = () => {
   //   dispatch(addToCart(state));
   // };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const notify = () =>
+    toast.success(" Item Added!", {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
 
   return (
     <>
@@ -88,23 +100,38 @@ const Product = () => {
                 <span className="text-gray-400">Rating:</span>⭐⭐⭐⭐⭐(
                 {state.rating})
               </p>
-              <p className="text-xl font-semibold">₹199</p>
+              <p className="text-xl font-semibold">₹{state.price}</p>
               <p className="text-[8px]">Stock Available</p>
               <div className="flex">
                 <button
                   className="mt-6 bg-gray-500 py-2 
                 px-10 text-white rounded 
                 hover:bg-gray-700 mr-4"
-                  onClick={ () => {handleUpdateData() ; navigate('/cart')}}
+                  onClick={() => {
+                    handleUpdateData();
+                    notify();
+                  }}
                   // onClick={addToCartHandler}
                 >
                   {isLoading ? "loading..." : "Add to cart"}
                 </button>
+                <ToastContainer
+                  position="bottom-center"
+                  autoClose={5000}
+                  hideProgressBar={false}
+                  newestOnTop={false}
+                  closeOnClick
+                  rtl={false}
+                  pauseOnFocusLoss
+                  draggable
+                  pauseOnHover
+                  theme="dark"
+                />
                 <button
                   className="mt-6 bg-gray-900 py-2 
               px-10 text-white rounded 
               hover:bg-black mr-4"
-                  onClick={() => navigate("/payment")}
+                  onClick={() => navigate("/payment",{state:`₹${state.price}`})}
                 >
                   Buy Now
                 </button>

@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const Main = () => {
   // step 1: create  a state variable
 
@@ -12,6 +11,7 @@ const Main = () => {
   const [selectGender, setSelectedGender] = useState("Women");
   const [selectCategory, setSelectedCategory] = useState("t-shirt");
   const [categoryData, setCategoryData] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   // api useState
 
@@ -27,6 +27,7 @@ const Main = () => {
   // console.log('Women',WomenProducts)
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get("http://localhost:4000/api/v1/products")
       .then((res) => {
@@ -35,7 +36,7 @@ const Main = () => {
         setProducts(res.data.products);
         // shoe category data fetching
 
-        const shoeData = res.data.products.filter( 
+        const shoeData = res.data.products.filter(
           (item) => item.category === "shoes" && item.role === "women"
         );
         setWomenShoes(shoeData);
@@ -79,10 +80,12 @@ const Main = () => {
         // console.log("bagpacksItems:", bagpacksItems);
 
         // console.log(typeof products);
+        setIsLoading(false)
       })
 
       .catch((err) => {
         console.log("Error fetching the data:", err);
+        setIsLoading(false);
       });
   }, []);
   // products,womenShoes,womenWatches
@@ -124,7 +127,7 @@ const Main = () => {
        items-center flex-col
         text-gray-700 my-4 
         bg-cover bg-center h-64 opacity-80
-       bg-[url('https://res.cloudinary.com/dzmicyc9d/image/upload/v1694716538/products/img/header-bg_lc3vkc.png')]"
+       bg-[url('https://res.cloudinary.com/dzmicyc9d/image/upload/v1694716538/products/img/header-bg_lc3vkc.ng')]"
       >
         <p className="font-semibold text-4xl pb-4 mt-32">
           With an outstanding style, only for you
@@ -142,8 +145,8 @@ const Main = () => {
             product.name === "her" ? (
               <img
                 key={index}
-                src={product.image}
-                alt={product.name}
+                src={isLoading ? "loading..." : product.image}
+                alt={isLoading ? "loading..." : product.name}
                 className="h-[500px] w-[100%]"
               />
             ) : null
@@ -225,7 +228,7 @@ const Main = () => {
                 <p className="text-xl ">{product.name}</p>
                 <p>
                   <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                 <span className="font-semibold text-xl "> ₹199</span> 
+                  <span className="font-semibold text-xl "> ₹199</span>
                 </p>
               </div>
             ) : null
@@ -261,7 +264,7 @@ const Main = () => {
                 <p className="text-xl">{product.name}</p>
                 <p>
                   <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                  <span className="font-bold text-xl"> ₹121</span> 
+                  <span className="font-bold text-xl"> ₹121</span>
                 </p>
               </div>
             ) : null
@@ -293,7 +296,7 @@ const Main = () => {
                 />
                 <p className="text-xl">{`${product.name}`}</p>
                 <p>
-                  <s className="pl-[5px]">{`₹${product.price}`}</s> 
+                  <s className="pl-[5px]">{`₹${product.price}`}</s>
                   <span className="font-semibold text-xl"> ₹399</span>
                 </p>
               </div>
@@ -393,7 +396,7 @@ const Main = () => {
             product.name === "Outfit" ? (
               <img
                 key={index}
-                src={product.image}
+                src={isLoading?"loading...":product.image}
                 alt={product.image}
                 className="w-full  h-[500px]"
               />
@@ -433,7 +436,7 @@ const Main = () => {
             Vanity Bags <span className="text-">&#8594;</span>
           </button>
         </div>
-        <div className="w-[33%]  mr-[10px] relative">
+        <div className="w-[33%]  mr-[10px] relative ">
           {products.map((product, index) =>
             product.name === "Watch-1" && product.role === "women" ? (
               <img
@@ -501,8 +504,8 @@ const Main = () => {
                   alt={product.image}
                   className="w-full h-[320px]"
                 />
-                <h1 className="text-xl">{product.name}</h1>
-                <p className="text-xl font-semibold">{product.price}</p>
+                <h1 className="text-xl">{isLoading?"loading":product.name}</h1>
+                <p className="text-xl font-semibold">{isLoading?"loading":product.price}</p>
               </div>
             ) : null
           )}

@@ -19,8 +19,8 @@ const MenProducts = () => {
               className="w-full h-96 object-cover"
             />
             <p className="mt-3">{items.name}</p>
-            <p>
-              <s className="pl-[5px]  h-[250px]">{`₹${items.price}`}</s> ₹199
+            <p className="pl-[5px]">
+              {`₹${items.price}`}
             </p>
           </div>
         ))}
