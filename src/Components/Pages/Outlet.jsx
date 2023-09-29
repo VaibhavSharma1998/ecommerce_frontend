@@ -5,12 +5,12 @@ const Outlet = () => {
  
  
   return (
-    <div className="flex justify-center items-center  flex-col relative min-h-screen w-full overscroll-y-none">
-    <div className="text-center absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-120%]">
-      <p className="font-bold text-8xl text-gray-700 h-full"> Coming Soon</p>
-      <p className="mt-4 text-[#4B527E]">Our Outlets Products are coming soon...</p>
+    <div className="flex items-center justify-center flex-col h-[60vh] w-screen">
+      
+        <p className="font-bold text-8xl text-gray-700 "> Coming Soon</p>
+        <p className=" text-[#4B527E] mt-4">Our Outlet Products are coming soon...</p>
+      
     </div>
-  </div>
   );
 };
 

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 // import axios  from 'axios'
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ const WomenProducts = () => {
   // const [isLoading, setIsLoading] = useState(false);
   const { state } = location;
   const navigate = useNavigate();
+ 
   // scroll to top
   window.scrollTo(0, 0);
   return (

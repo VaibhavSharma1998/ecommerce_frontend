@@ -19,10 +19,10 @@ const Women = () => {
   const navigate = useNavigate()
   return (
     <div className="w-full px-[10%]">
-      <h1 className="text-gray-700 font-bold text-4xl text-center">Women Products</h1>
-      <div className="flex flex-wrap">
+      <h1 className="text-gray-700 font-bold sm:text-4xl  text-2xl text-center">Women Products</h1>
+      <div className="flex flex-wrap flex-col md:flex-row">
         {womenProducts.map((items, index) => (
-          <div className="w-[30%] m-4 bg-[#dedede] 
+          <div className=" md:w-[40%] lg:w-[30%]  w-[100%]  m-4 bg-[#dedede] 
           rounded-md p-2 cursor-pointer mt-8"
           onClick={ () => navigate('/product',{state:items})}>
             <img

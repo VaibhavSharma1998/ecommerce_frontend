@@ -12,13 +12,17 @@ const Product = () => {
 
   const location = useLocation();
   const { state } = location;
-  console.log("state:", state);
+  console.log("Checkstate:", state);
   const [isLoading, setIsLoading] = useState(false);
+  // const [isBtnClicked, setIsBtnClicked] = useState(false);
 
   // state.addToCart = true
 
   const handleUpdateData = async () => {
     setIsLoading(true);
+    // setIsBtnClicked(true);
+    navigate("/cart", { state: { price: state.price } });
+
     try {
       // url end point
       const apiUrl = `http://localhost:4000/api/v1/product/${state._id}`;
@@ -82,15 +86,15 @@ const Product = () => {
   return (
     <>
       <div className="w-full px-[10%] mt-3">
-        <div className="flex">
-          <div className="w-1/2">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:w-1/2 w-full">
             <img
               src={state.image}
               alt={state.name}
-              className="w-full h-[370px] object-center"
+              className="w-full h-[370px] object-center rounded-3xl shadow-2xl p-10"
             />
           </div>
-          <div className=" w-1/2">
+          <div className=" md:w-1/2 w-full mt-5">
             <div className="flex  flex-col  ml-10">
               <h1 className="font-bold text-3xl ">{state.name}</h1>
               <p className="mt-6">
@@ -102,18 +106,29 @@ const Product = () => {
               </p>
               <p className="text-xl font-semibold">₹{state.price}</p>
               <p className="text-[8px]">Stock Available</p>
-              <div className="flex">
+              <div className="flex flex-col md:flex-row">
                 <button
+                  //   className={
+                  //     isBtnClicked === true
+                  //       ? `mt-6 bg-gray-300 py-2
+                  //   px-10 text-white rounded
+                  //    mr-4 cursor-pointer`
+                  //       : `mt-6 bg-gray-500 py-2
+                  // px-10 text-white rounded
+                  // hover:bg-gray-700 mr-4`
+                  //   }
+
                   className="mt-6 bg-gray-500 py-2 
-                px-10 text-white rounded 
-                hover:bg-gray-700 mr-4"
+                  px-10 text-white rounded-3xl md:rounded
+                  hover:bg-gray-700 mr-4"
                   onClick={() => {
                     handleUpdateData();
                     notify();
                   }}
-                  // onClick={addToCartHandler}
+                  // disabled={isBtnClicked}
                 >
                   {isLoading ? "loading..." : "Add to cart"}
+                  {/* {isBtnClicked ? "Go to Cart" : isLoading ? "Loading..." : "Add to Cart"} */}
                 </button>
                 <ToastContainer
                   position="bottom-center"
@@ -129,9 +144,11 @@ const Product = () => {
                 />
                 <button
                   className="mt-6 bg-gray-900 py-2 
-              px-10 text-white rounded 
+              px-10 text-white rounded-3xl  md:rounded 
               hover:bg-black mr-4"
-                  onClick={() => navigate("/payment",{state:`₹${state.price}`})}
+                  onClick={() =>
+                    navigate("/payment", { state: `₹${state.price}` })
+                  }
                 >
                   Buy Now
                 </button>

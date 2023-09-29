@@ -37,9 +37,10 @@ const Login = () => {
   const onSubmit = (data) => {
     setIsLoading(true);
     login(data)
-      .then(() => {
+      .then((res) => {
         alert("Login Successfully!");
-        localStorage.setItem("data", JSON.stringify(data));
+        console.log(res,"res")
+        localStorage.setItem("token", JSON.stringify(res.data.token));
         reset();
         navigate("/men");
         setIsLoading(false);

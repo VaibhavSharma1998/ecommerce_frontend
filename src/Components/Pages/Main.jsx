@@ -80,7 +80,8 @@ const Main = () => {
         // console.log("bagpacksItems:", bagpacksItems);
 
         // console.log(typeof products);
-        setIsLoading(false)
+
+        setIsLoading(false);
       })
 
       .catch((err) => {
@@ -120,536 +121,560 @@ const Main = () => {
   // console.log(categoryData, "categoryData");
 
   return (
-    <div className=" w-full  px-[10%]  ">
-      {/* top main text start */}
-      <div
-        className="flex justify-center
+    <div>
+      {isLoading ? (
+        <h1 className="flex justify-center items-center text-5xl font-bold w-full h-[60vh]">
+          Loading...
+        </h1>
+      ) : (
+        <div className=" w-full  px-[10%]  ">
+          {/* top main text start */}
+          <div
+            className="flex justify-center
        items-center flex-col
         text-gray-700 my-4 
         bg-cover bg-center h-64 opacity-80
        bg-[url('https://res.cloudinary.com/dzmicyc9d/image/upload/v1694716538/products/img/header-bg_lc3vkc.ng')]"
-      >
-        <p className="font-semibold text-4xl pb-4 mt-32">
-          With an outstanding style, only for you
-        </p>
-        <p className="font-bold text-7xl  mb-20">
-          Exclusively designed for you
-        </p>
-      </div>
-      {/* Top main text end */}
+          >
+            <p className="font-semibold sm:text-4xl  lg:pb-4 mt-32 text-2xl ">
+              With an outstanding style, only for you
+            </p>
+            <p className="font-bold sm:text-7xl  mb-20 text-3xl">
+              Exclusively designed for you
+            </p>
+          </div>
+          {/* Top main text end */}
 
-      {/* top For him and her  section start*/}
-      <div className="flex items-center relative">
-        <div className="w-[50%] ">
-          {products.map((product, index) =>
-            product.name === "her" ? (
-              <img
-                key={index}
-                src={isLoading ? "loading..." : product.image}
-                alt={isLoading ? "loading..." : product.name}
-                className="h-[500px] w-[100%]"
-              />
-            ) : null
-          )}
-          <button
-            className="bg-white
+          {/* top For him and her  section start*/}
+          <div className="flex  flex-col items-center relative md:flex-row">
+            <div className="md:w-[50%] w-full">
+              {products.map((product, index) =>
+                product.name === "her" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.name}
+                    className="h-[500px] w-[100%]"
+                  />
+                ) : null
+              )}
+              <button
+                className="bg-white
            text-gray-700 py-2 px-8 
           absolute left-[20%] top-[50%]
           hover:bg-gray-700 hover:text-white"
-            onClick={() => navigate("/womenproducts", { state: womenProducts })}
-          >
-            For Her
-          </button>
-        </div>
+                onClick={() =>
+                  navigate("/womenproducts", { state: womenProducts })
+                }
+              >
+                For Her
+              </button>
+            </div>
 
-        <div className="w-[50%] relative">
-          {products.map((product, index) =>
-            product.name === "him" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.name}
-                className="h-[500px] w-[100%]"
-              />
-            ) : null
-          )}
-          <button
-            className="bg-white text-gray-700 
+            <div className="md:w-[50%]  w-full relative">
+              {products.map((product, index) =>
+                product.name === "him" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.image}
+                    className="h-[500px] w-[100%]"
+                  />
+                ) : null
+              )}
+              <button
+                className="bg-white text-gray-700 
           py-2 px-8 absolute right-[28%] top-[50%]
           hover:bg-gray-700 hover:text-white"
-            onClick={() => navigate("/menproducts", { state: menProducts })}
-          >
-            For Him
-          </button>
-        </div>
-      </div>
-      {/* top for him and her section end */}
-
-      {/* Best deal text start */}
-      <div className="flex justify-center items-center ">
-        <p
-          className="text-gray-700 my-16 font-bold 
-        text-4xl"
-        >
-          Best Deals
-        </p>
-      </div>
-      {/* Best deal text end */}
-
-      {/* Best deal images start */}
-      <div className="flex items-center ">
-        <div
-          className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "Flat Hill Slingback" ? (
-              <div
-                onClick={() =>
-                  navigate("/product", {
-                    state: {
-                      image: product.image,
-                      name: product.name,
-                      rating: product.name,
-                      category: product.category,
-                      price: product.price,
-                      _id: product._id,
-                      addToCart: product.addToCart,
-                    },
-                  })
-                }
+                onClick={() => navigate("/menproducts", { state: menProducts })}
               >
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.name}
-                  className="h-[250px] cursor-pointer w-full"
-                />
-                <p className="text-xl ">{product.name}</p>
-                <p>
-                  <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                  <span className="font-semibold text-xl "> ₹199</span>
-                </p>
-              </div>
-            ) : null
-          )}
-        </div>
-        <div
-          className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "blue ring" ? (
-              <div
-                onClick={() =>
-                  navigate("/product", {
-                    state: {
-                      image: product.image,
-                      name: product.name,
-                      rating: product.name,
-                      category: product.category,
-                      price: product.price,
-                      _id: product._id,
-                      addToCart: product.addToCart,
-                    },
-                  })
-                }
-              >
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.name}
-                  className="h-[250px] cursor-pointer w-full"
-                />
-                <p className="text-xl">{product.name}</p>
-                <p>
-                  <s className="pl-[5px]  h-[250px]">{`₹${product.price}`}</s>
-                  <span className="font-bold text-xl"> ₹121</span>
-                </p>
-              </div>
-            ) : null
-          )}
-        </div>
-        <div className="w-[25%] bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
-          {products.map((product, index) =>
-            product.name === "Brown Leathered Wallet" ? (
-              <div
-                onClick={() =>
-                  navigate("/product", {
-                    state: {
-                      image: product.image,
-                      name: product.name,
-                      rating: product.name,
-                      category: product.category,
-                      price: product.price,
-                      _id: product._id,
-                      addToCart: product.addToCart,
-                    },
-                  })
-                }
-              >
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="h-[250px]  cursor-pointer w-full"
-                />
-                <p className="text-xl">{`${product.name}`}</p>
-                <p>
-                  <s className="pl-[5px]">{`₹${product.price}`}</s>
-                  <span className="font-semibold text-xl"> ₹399</span>
-                </p>
-              </div>
-            ) : null
-          )}
-        </div>
-
-        <div className="w-[25%]    bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
-          {products.map((product, index) =>
-            product.name === "Sliverside Wristwatch" ? (
-              <div
-                onClick={() =>
-                  navigate("/product", {
-                    state: {
-                      image: product.image,
-                      name: product.name,
-                      rating: product.name,
-                      category: product.category,
-                      price: product.price,
-                      _id: product._id,
-                      addToCart: product.addToCart,
-                    },
-                  })
-                }
-              >
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="h-[250px] w-full cursor-pointer"
-                />
-                <p className="text-xl">{product.name}</p>
-                <p>
-                  <s className="pl-[5px]">{`₹${product.price}`}</s>
-                  <span className="font-semibold text-xl"> ₹329</span>
-                </p>
-              </div>
-            ) : null
-          )}
-        </div>
-      </div>
-      {/* Best deal images end */}
-
-      {/* View All button start */}
-      <div
-        className="flex justify-center
-       items-center my-[100px]"
-      >
-        <button
-          className="text-white bg-gray-700 py-[4px] 
-        px-[14px] font-semibold block hover:bg-black"
-          onClick={() => navigate("/bestdeals", { state: bestProducts })}
-        >
-          View All
-        </button>
-      </div>
-      {/* View All button ends  */}
-
-      {/* Exclusive collection 2023 start */}
-      <div className="flex items-center border-4">
-        <div className="flex w-[50%] h-[500px] ">
-          <div
-            className="flex  justify-center 
-          flex-col"
-          >
-            <p
-              className="pl-[25px] pb-[15px] 
-            text-start"
-            >
-              Exclusive collection 2023
-            </p>
-            <h2
-              className="font-semibold 
-            text-4xl pl-[25px] pb-[15px]"
-            >
-              Be exclusive
-            </h2>
-            <p className="pl-[25px] pb-[15px]">
-              The best everyday option in a Super Saver range within a <br />
-              reasonable price. It is our responsibility to keep you 100 <br />
-              percent stylish. Be smart & , trendy with us.
-            </p>
-            <div className="ml-[15px]">
-              <button
-                className="bg-gray-700 
-              text-white mx-[10px] inline py-[8px]
-               px-[50px] hover:bg-black font-semibold "
-                onClick={() => navigate("/products")}
-              >
-                Explore
+                For Him
               </button>
             </div>
           </div>
-        </div>
-        <div className="w-[50%] relative">
-          {products.map((product, index) =>
-            product.name === "Outfit" ? (
-              <img
-                key={index}
-                src={isLoading?"loading...":product.image}
-                alt={product.image}
-                className="w-full  h-[500px]"
-              />
-            ) : null
-          )}
-          <button
-            className="absolute right-64 bottom-5
-         text-white font-bold text-xl"
-            onClick={() =>
-              navigate("/exclusiveproducts", { state: exclusiveProducts })
-            }
-          >
-            Outfit <span className="text-">&#8594;</span>
-          </button>
-        </div>
-      </div>
-      {/* Exclusive collection 2023 end */}
+          {/* top for him and her section end */}
 
-      {/* vanity bag (3 photos ) starts*/}
-      <div className="flex items-center mt-[16px] ">
-        <div className="w-[33%] mr-[10px] relative">
-          {products.map((product, index) =>
-            product.name === "Vanity Bags" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-[400px] h-[350px]"
-              />
-            ) : null
-          )}
-          <button
-            className="absolute left-32 bottom-5
-         text-white font-bold text-xl"
-            onClick={() => navigate("/womenbagpacks", { state: womenBags })}
-          >
-            Vanity Bags <span className="text-">&#8594;</span>
-          </button>
-        </div>
-        <div className="w-[33%]  mr-[10px] relative ">
-          {products.map((product, index) =>
-            product.name === "Watch-1" && product.role === "women" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-[400px] h-[350px] "
-              />
-            ) : null
-          )}
-          <button
-            className="absolute left-32 bottom-5
-          font-bold text-xl text-black"
-            onClick={() => navigate("/womenwatches", { state: womenWatches })}
-          >
-            Watches <span className="">&#8594;</span>
-          </button>
-        </div>
-        <div className="w-[33%]   mr-[10px] relative bg-gradient-to-b  from-[#212121] via-transparent to-transparent">
-          {products.map((product, index) =>
-            product.name === "High Heels" ? (
-              <img
-                key={index}
-                src={product.image}
-                alt={product.image}
-                className="w-[400px] h-[350px] "
-              />
-            ) : null
-          )}
-          <button
-            className="absolute right-32 bottom-5
-          text-[#cc9797] font-extrabold text-xl"
-            onClick={() => navigate("/womenshoes", { state: womenShoes })}
-          >
-            High Heels <span className="">&#8594;</span>
-          </button>
-        </div>
-      </div>
-      {/* vanity bag (3 photos ) ends*/}
-
-      {/* checkout new arrivals text start */}
-      <div className="flex justify-center items-center ">
-        <p
-          className="text-gray-700 
-        my-16 font-bold text-4xl"
-        >
-          Checkout New Arrivals
-        </p>
-      </div>
-      {/* checkout new arrivals text ends   */}
-
-      {/* checkout images start */}
-
-      <div className="flex items-center">
-        <div
-          className="w-[25%] bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "full body" ? (
-              <div onClick={() => navigate("/product", { state: product })}>
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="w-full h-[320px]"
-                />
-                <h1 className="text-xl">{isLoading?"loading":product.name}</h1>
-                <p className="text-xl font-semibold">{isLoading?"loading":product.price}</p>
-              </div>
-            ) : null
-          )}
-        </div>
-        <div
-          className="w-[25%] bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "formal coat" ? (
-              <div onClick={() => navigate("/product", { state: product })}>
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="w-full h-[320px]"
-                />
-                <h1 className="text-xl">{product.name}</h1>
-                <p className="text-xl font-semibold">{product.price}</p>
-              </div>
-            ) : null
-          )}
-        </div>
-        <div
-          className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "Ocean blue" ? (
-              <div onClick={() => navigate("/product", { state: product })}>
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="w-full h-[320px]"
-                />
-                <h1 className="text-xl">{product.name}</h1>
-                <p className="text-xl font-semibold">{product.price}</p>
-              </div>
-            ) : null
-          )}
-        </div>
-        <div
-          className="w-[25%]   bg-[#dedede] 
-        rounded-md p-2 cursor-pointer mt-5 mr-4"
-        >
-          {products.map((product, index) =>
-            product.name === "sweater" ? (
-              <div onClick={() => navigate("/product", { state: product })}>
-                <img
-                  key={index}
-                  src={product.image}
-                  alt={product.image}
-                  className="w-full h-[320px]"
-                />
-                <h1 className="text-xl">{product.name}</h1>
-                <p className="text-xl font-semibold">{product.price}</p>
-              </div>
-            ) : null
-          )}
-        </div>
-      </div>
-      {/* checkout images end */}
-
-      {/*  Shop By Category text start*/}
-      <div className="flex justify-center items-center ">
-        <p className="text-gray-700 my-16 font-bold text-4xl">
-          Shop By Category
-        </p>
-      </div>
-      {/*  Shop By Category text end*/}
-
-      {/* Shop By Category  Products starts */}
-      <div className="flex items-center justify-center ">
-        <div className="mb-10">
-          <button
-            className={`${
-              selectGender === "Women"
-                ? "bg-black text-white"
-                : "bg-white text-black"
-            } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
-          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
-            onClick={() => setSelectedGender("Women")}
-          >
-            For Women
-          </button>
-        </div>
-        <div className="mb-10">
-          <button
-            className={`${
-              selectGender === "Men"
-                ? "bg-black text-white"
-                : "bg-white text-black"
-            } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
-          focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded justify-center items-cenetr flex`}
-            onClick={() => setSelectedGender("Men")}
-          >
-            For Men
-          </button>
-        </div>
-      </div>
-      <div className="mb-10">
-        <div className="flex items-center justify-center">
-          {category.map((item, index) => (
-            <button
-              key={index}
-              className={`${
-                selectCategory === item
-                  ? "bg-black text-white"
-                  : "bg-white text-black"
-              } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
-            focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
-              onClick={() => setSelectedCategory(item)}
+          {/* Best deal text start */}
+          <div className="flex justify-center items-center ">
+            <p
+              className="text-gray-700 my-16 font-bold 
+        text-4xl"
             >
-              {item}
+              Best Deals
+            </p>
+          </div>
+          {/* Best deal text end */}
+
+          {/* Best deal images start */}
+          <div className="flex items-center flex-col md:flex-row">
+            <div
+              className="md:w-[25%]  w-full bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "Flat Hill Slingback" ? (
+                  <div
+                    onClick={() =>
+                      navigate("/product", {
+                        state: {
+                          image: product.image,
+                          name: product.name,
+                          rating: product.name,
+                          category: product.category,
+                          price: product.price,
+                          _id: product._id,
+                          addToCart: product.addToCart,
+                        },
+                      })
+                    }
+                  >
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="h-[250px] cursor-pointer w-full"
+                    />
+                    <p className="text-xl ">{product.name}</p>
+                    <p>
+                      <s className="pl-[5px]  h-[250px]">
+                        {`₹${product.price}`}
+                      </s>
+                      <span className="font-semibold text-xl "> ₹199</span>
+                    </p>
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div
+              className="md:w-[25%]  w-full  bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "blue ring" ? (
+                  <div
+                    onClick={() =>
+                      navigate("/product", {
+                        state: {
+                          image: product.image,
+                          name: product.name,
+                          rating: product.name,
+                          category: product.category,
+                          price: product.price,
+                          _id: product._id,
+                          addToCart: product.addToCart,
+                        },
+                      })
+                    }
+                  >
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="h-[250px] cursor-pointer w-full"
+                    />
+                    <p className="text-xl">{product.name}</p>
+                    <p>
+                      <s className="pl-[5px]  h-[250px]">
+                        {`₹${product.price}`}
+                      </s>
+                      <span className="font-bold text-xl"> ₹121</span>
+                    </p>
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div className="md:w-[25%]  w-full bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
+              {products.map((product, index) =>
+                product.name === "Brown Leathered Wallet" ? (
+                  <div
+                    onClick={() =>
+                      navigate("/product", {
+                        state: {
+                          image: product.image,
+                          name: product.name,
+                          rating: product.name,
+                          category: product.category,
+                          price: product.price,
+                          _id: product._id,
+                          addToCart: product.addToCart,
+                        },
+                      })
+                    }
+                  >
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="h-[250px]  cursor-pointer w-full"
+                    />
+                    <p className="text-xl">{product.name}</p>
+                    <p>
+                      <s className="pl-[5px]">{`₹${product.price}`}</s>
+                      <span className="font-semibold text-xl"> ₹399</span>
+                    </p>
+                  </div>
+                ) : null
+              )}
+            </div>
+
+            <div className="md:w-[25%]  w-full   bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
+              {products.map((product, index) =>
+                product.name === "Sliverside Wristwatch" ? (
+                  <div
+                    onClick={() =>
+                      navigate("/product", {
+                        state: {
+                          image: product.image,
+                          name: product.name,
+                          rating: product.name,
+                          category: product.category,
+                          price: product.price,
+                          _id: product._id,
+                          addToCart: product.addToCart,
+                        },
+                      })
+                    }
+                    key={index}
+                  >
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="h-[250px] w-full cursor-pointer"
+                    />
+                    <p className="text-xl">{product.name}</p>
+                    <p>
+                      <s className="pl-[5px]">{`₹${product.price}`}</s>
+                      <span className="font-semibold text-xl"> ₹329</span>
+                    </p>
+                  </div>
+                ) : null
+              )}
+            </div>
+          </div>
+          {/* Best deal images end */}
+
+          {/* View All button start */}
+          <div
+            className="flex justify-center
+       items-center my-[100px]"
+          >
+            <button
+              className="text-white bg-gray-700 py-[4px] 
+        px-[14px] font-semibold block hover:bg-black"
+              onClick={() => navigate("/bestdeals", { state: bestProducts })}
+            >
+              View All
             </button>
-          ))}
-        </div>
-        <div>
-          <div className="flex items-center justify-center">
-            {categoryData?.map((product, index) => (
+          </div>
+          {/* View All button ends  */}
+
+          {/* Exclusive collection 2023 start */}
+          <div className="flex items-center border-4 flex-col md:flex-row">
+            <div className="flex md:w-[50%]  w-full h-[500px] ">
               <div
-                className=" bg-[#dedede] 
-              rounded-md p-2 cursor-pointer mt-5 mr-4 w-[20%]"
-                onClick={() => {
-                  navigate("/product", { state: product });
-                }}
+                className="flex  justify-center 
+          flex-col"
               >
-                <div key={index}>
-                  <img
-                    src={product.image}
-                    className="w-full  h-60"
-                    alt={product.name}
-                  />
-                  <p className="text-xl">{product.name}</p>
-                  <p className="text-xl font-semibold">{product.price}</p>
+                <p
+                  className="pl-[25px] pb-[15px] 
+            text-start"
+                >
+                  Exclusive collection 2023
+                </p>
+                <h2
+                  className="font-semibold 
+            text-4xl pl-[25px] pb-[15px]"
+                >
+                  Be exclusive
+                </h2>
+                <p className="pl-[25px] pb-[15px]">
+                  The best everyday option in a Super Saver range within a{" "}
+                  <br />
+                  reasonable price. It is our responsibility to keep you 100{" "}
+                  <br />
+                  percent stylish. Be smart & , trendy with us.
+                </p>
+                <div className="ml-[15px]">
+                  <button
+                    className="bg-gray-700 
+              text-white mx-[10px] inline py-[8px]
+               px-[50px] hover:bg-black font-semibold "
+                    onClick={() => navigate("/products")}
+                  >
+                    Explore
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
+            <div className="md:w-[50%] w-full relative">
+              {products.map((product, index) =>
+                product.name === "Outfit" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.image}
+                    className="w-full  h-[500px]"
+                  />
+                ) : null
+              )}
+              <button
+                className="absolute right-64 bottom-5
+         text-white font-bold text-xl"
+                onClick={() =>
+                  navigate("/exclusiveproducts", { state: exclusiveProducts })
+                }
+              >
+                Outfit <span className="text-">&#8594;</span>
+              </button>
+            </div>
           </div>
-        </div>
-      </div>
+          {/* Exclusive collection 2023 end */}
 
-      {/*Shop By Category  Products Enda  */}
+          {/* vanity bag (3 photos ) starts*/}
+          <div className="flex items-center mt-[16px] flex-col md:flex-row">
+            <div className=" md:w-[33%] w-full mr-[10px] relative">
+              {products.map((product, index) =>
+                product.name === "Vanity Bags" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.name}
+                    className="w-[400px] h-[350px]"
+                  />
+                ) : null
+              )}
+              <button
+                className="absolute left-32 bottom-5
+         text-white font-bold text-xl"
+                onClick={() => navigate("/womenbagpacks", { state: womenBags })}
+              >
+                Vanity Bags <span className="text-">&#8594;</span>
+              </button>
+            </div>
+            <div className="md:w-[33%] w-full  mr-[10px] relative ">
+              {products.map((product, index) =>
+                product.name === "Watch-1" && product.role === "women" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.name}
+                    className="w-[400px] h-[350px] "
+                  />
+                ) : null
+              )}
+              <button
+                className="absolute left-32 bottom-5
+          font-bold text-xl text-black"
+                onClick={() =>
+                  navigate("/womenwatches", { state: womenWatches })
+                }
+              >
+                Watches <span className="">&#8594;</span>
+              </button>
+            </div>
+            <div
+              className="md:w-[33%] w-full mr-[10px] relative bg-gradient-to-b 
+             from-[#212121] via-transparent to-transparent"
+            >
+              {products.map((product, index) =>
+                product.name === "High Heels" ? (
+                  <img
+                    key={index}
+                    src={product.image}
+                    alt={product.image}
+                    className="w-[400px] h-[350px] "
+                  />
+                ) : null
+              )}
+              <button
+                className="absolute right-32 bottom-5
+          text-[#cc9797] font-extrabold text-xl"
+                onClick={() => navigate("/womenshoes", { state: womenShoes })}
+              >
+                High Heels <span className="">&#8594;</span>
+              </button>
+            </div>
+          </div>
+          {/* vanity bag (3 photos ) ends*/}
+
+          {/* checkout new arrivals text start */}
+          <div className="flex justify-center items-center ">
+            <p
+              className="text-gray-700 
+        my-16 font-bold md:text-4xl text-2xl"
+            >
+              Checkout New Arrivals
+            </p>
+          </div>
+          {/* checkout new arrivals text ends   */}
+
+          {/* checkout images start */}
+
+          <div className="flex items-center flex-col md:flex-row">
+            <div
+              className="md:w-[25%] w-full bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "full body" ? (
+                  <div onClick={() => navigate("/product", { state: product })}>
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.imagef}
+                      className="w-full h-[320px]"
+                    />
+                    <h1 className="text-xl">{product.name}</h1>
+                    <p className="text-xl font-semibold">{product.price}</p>
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div
+              className="md:w-[25%] w-full bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "formal coat" ? (
+                  <div onClick={() => navigate("/product", { state: product })}>
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="w-full h-[320px]"
+                    />
+                    <h1 className="text-xl">{product.name}</h1>
+                    <p className="text-xl font-semibold">{product.price}</p>
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div
+              className="md:w-[25%] w-full   bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "Ocean blue" ? (
+                  <div onClick={() => navigate("/product", { state: product })}>
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="w-full h-[320px]"
+                    />
+                    <h1 className="text-xl">{product.name}</h1>
+                    <p className="text-xl font-semibold">{product.price}</p>
+                  </div>
+                ) : null
+              )}
+            </div>
+            <div
+              className="md:w-[25%] w-full   bg-[#dedede] 
+        rounded-md p-2 cursor-pointer mt-5 mr-4"
+            >
+              {products.map((product, index) =>
+                product.name === "sweater" ? (
+                  <div onClick={() => navigate("/product", { state: product })}>
+                    <img
+                      key={index}
+                      src={product.image}
+                      alt={product.image}
+                      className="w-full h-[320px]"
+                    />
+                    <h1 className="text-xl">{product.name}</h1>
+                    <p className="text-xl font-semibold">{product.price}</p>
+                  </div>
+                ) : null
+              )}
+            </div>
+          </div>
+          {/* checkout images end */}
+
+          {/*  Shop By Category text start*/}
+          <div className="flex justify-center items-center ">
+            <p className="text-gray-700 my-16 font-bold md:text-4xl text-2xl">
+              Shop By Category
+            </p>
+          </div>
+          {/*  Shop By Category text end*/}
+
+          {/* Shop By Category  Products starts */}
+          <div className="flex items-center justify-center ">
+            <div className="mb-10">
+              <button
+                className={`${
+                  selectGender === "Women"
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                } mr-[30px] focus:bg-black focus:text-white
+                 focus:py-[4px] focus:px-[8px] md:focus:py-[8px] md:focus:px-[16px]
+                       focus:rounded foucs:font-semibold 
+                       font-semibold py-[4px] px-[8px] rounded`}
+                onClick={() => setSelectedGender("Women")}
+              >
+                For Women
+              </button>
+            </div>
+            <div className="mb-10">
+              <button
+                className={`${
+                  selectGender === "Men"
+                    ? "bg-black text-white"
+                    : "bg-white text-black"
+                } mr-[30px] focus:bg-black focus:text-white focus:py-[2px] focus:px-[4px] 
+          focus:rounded foucs:font-semibold font-semibold py-[2px] px-[4px] rounded justify-center items-cenetr flex`}
+                onClick={() => setSelectedGender("Men")}
+              >
+                For Men
+              </button>
+            </div>
+          </div>
+          <div className="mb-10">
+            <div className="flex items-center justify-center flex-col md:flex-row">
+              {category.map((item, index) => (
+                <button
+                  key={index}
+                  className={`${
+                    selectCategory === item
+                      ? "bg-black text-white"
+                      : "bg-white text-black"
+                  } mr-[30px] focus:bg-black focus:text-white focus:py-[8px] focus:px-[16px] 
+            focus:rounded foucs:font-semibold font-semibold py-[8px] px-[16px] rounded`}
+                  onClick={() => setSelectedCategory(item)}
+                >
+                  {item}
+                </button>
+              ))}
+            </div>
+            <div>
+              <div className="flex items-center justify-center flex-col md:flex-row">
+                {categoryData?.map((product, index) => (
+                  <div
+                    className=" bg-[#dedede] 
+              rounded-md p-2 cursor-pointer mt-5 mr-4 md:w-[20%] w-[100%]"
+                    onClick={() => {
+                      navigate("/product", { state: product });
+                    }}
+                  >
+                    <div key={index}>
+                      <img
+                        src={product.image}
+                        className="w-full  h-60"
+                        alt={product.image}
+                      />
+                      <p className="text-xl">{product.name}</p>
+                      <p className="text-xl font-semibold">{product.price}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/*Shop By Category  Products Enda  */}
+        </div>
+      )}
     </div>
   );
 };

@@ -40,7 +40,7 @@ const CheckoutForm = ({state}) => {
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-[60vh]">
       {stripePromise && (
         <form
           className="w-96 rounded-md shadow-md bg-white p-5"

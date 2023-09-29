@@ -7,9 +7,9 @@ const MenProducts = () => {
   // Scroll to the top of the page
   window.scrollTo(0, 0);
   return (
-    <div className="w-full px-[10%]">
+    <div className="w-full px-[10%] flex justify-center items-center bg-red-600">
       <h1 className="text-gray-700 font-bold text-4xl text-center">Men Products</h1>
-      <div className="flex flex-wrap">
+      <div className=" w-full flex flex-wrap items-center">
         {state.map((items, index) => (
           <div className="w-[30%] m-4 bg-[#dedede] rounded-md p-2 cursor-pointer mt-8">
             <img
