@@ -20,7 +20,7 @@ const Women = () => {
   return (
     <div className="w-full px-[10%]">
       <h1 className="text-gray-700 font-bold sm:text-4xl  text-2xl text-center">Women Products</h1>
-      <div className="flex flex-wrap flex-col md:flex-row">
+      <div className="flex flex-wrap flex-col justify-center md:flex-row">
         {womenProducts.map((items, index) => (
           <div className=" md:w-[40%] lg:w-[30%]  w-[100%]  m-4 bg-[#dedede] 
           rounded-md p-2 cursor-pointer mt-8"

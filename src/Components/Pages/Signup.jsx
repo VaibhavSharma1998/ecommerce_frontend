@@ -65,18 +65,19 @@ const Signup = () => {
   const onSubmit = (data) => {
     setIsLoading(true);
     register(data)
-      .then(() => {
+      .then((res) => {
         // register succesful
         alert("Registration successful!");
+        console.log("sigup:",res.data.user.name)
+        localStorage.setItem("personName",JSON.stringify(res.data.user.name))
         reset();
         navigate("/login");
         setIsLoading(false);
       })
       .catch((error) => {
         // Registration failed
-
         console.log("Error", error);
-        alert("Registration failed. Please try again.");
+        // alert("Registration failed. Please try again.");
         setIsLoading(false);
       });
   };

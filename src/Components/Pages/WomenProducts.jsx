@@ -17,7 +17,7 @@ const WomenProducts = () => {
       <h1 className="text-gray-700 font-bold text-4xl text-center">
         Women Products
       </h1>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap justify-center">
         {state.map((items, index) => (
           <div className="w-[30%] m-4 bg-[#dedede] rounded-md p-2 cursor-pointer mt-8">
             <img

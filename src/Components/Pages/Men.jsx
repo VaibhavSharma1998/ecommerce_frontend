@@ -20,9 +20,9 @@ const Men = () => {
   return (
     <div className="w-full px-[10%]">
       <h1 className="text-gray-700 font-bold text-4xl text-center">Men Products</h1>
-      <div className="flex flex-wrap items-center flex-col sm:flex-row ">
+      <div className="flex flex-wrap items-center justify-center flex-col sm:flex-row ">
         {womenProducts.map((items, index) => (
-          <div className="md:w-[30%] w-[100%]  sm:w-[50%] m-4 bg-[#dedede] 
+          <div className="md:w-[40%] lg:w-[30%]  w-[100%]   m-4 bg-[#dedede] 
           rounded-md p-2 cursor-pointer mt-8"
           onClick={ () => navigate('/product',{state:items})} key={index}>
             <img

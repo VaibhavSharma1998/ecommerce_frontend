@@ -164,7 +164,7 @@ const Main = () => {
           absolute left-[20%] top-[50%]
           hover:bg-gray-700 hover:text-white"
                 onClick={() =>
-                  navigate("/womenproducts", { state: womenProducts })
+                  navigate("/women")
                 }
               >
                 For Her
@@ -186,7 +186,7 @@ const Main = () => {
                 className="bg-white text-gray-700 
           py-2 px-8 absolute right-[28%] top-[50%]
           hover:bg-gray-700 hover:text-white"
-                onClick={() => navigate("/menproducts", { state: menProducts })}
+                onClick={() => navigate("/men")}
               >
                 For Him
               </button>
@@ -208,12 +208,12 @@ const Main = () => {
           {/* Best deal images start */}
           <div className="flex items-center flex-col md:flex-row">
             <div
-              className="md:w-[25%]  w-full bg-[#dedede] 
+              className="sm:w-[20%] w-full bg-[#dedede] 
         rounded-md p-2 cursor-pointer mt-5 mr-4"
             >
               {products.map((product, index) =>
                 product.name === "Flat Hill Slingback" ? (
-                  <div
+                  <div 
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -246,7 +246,7 @@ const Main = () => {
               )}
             </div>
             <div
-              className="md:w-[25%]  w-full  bg-[#dedede] 
+              className="md:w-[25%]   w-full  bg-[#dedede] 
         rounded-md p-2 cursor-pointer mt-5 mr-4"
             >
               {products.map((product, index) =>
@@ -283,7 +283,7 @@ const Main = () => {
                 ) : null
               )}
             </div>
-            <div className="md:w-[25%]  w-full bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
+            <div className="md:w-[25%]   w-full bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Brown Leathered Wallet" ? (
                   <div
@@ -317,7 +317,7 @@ const Main = () => {
               )}
             </div>
 
-            <div className="md:w-[25%]  w-full   bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
+            <div className="md:w-[25%]   w-full   bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Sliverside Wristwatch" ? (
                   <div

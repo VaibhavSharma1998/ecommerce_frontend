@@ -14,10 +14,11 @@ const BestDeals = () => {
         <h1 className="text-gray-700 font-bold text-4xl text-center">
           Best Deals
         </h1>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap items-center justify-center flex-col sm:flex-row ">
           {state.map((items, index) => (
             <div
-              className="w-[30%] m-4 bg-[#dedede] rounded-md p-2 cursor-pointer mt-8"
+              className="md:w-[40%] lg:w-[30%]  w-[100%]   m-4 bg-[#dedede] 
+              rounded-md p-2 cursor-pointer mt-8"
               onClick={() => navigate("/product", { state: items })}
             >
               <img
