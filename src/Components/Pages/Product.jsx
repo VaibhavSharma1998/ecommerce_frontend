@@ -4,8 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "./store/reducers/cartReducer";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -71,17 +70,6 @@ const Product = () => {
   // };
 
   const navigate = useNavigate();
-  const notify = () =>
-    toast.success(" Item Added!", {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
 
   return (
     <>
@@ -123,25 +111,15 @@ const Product = () => {
                   hover:bg-gray-700 mr-4"
                   onClick={() => {
                     handleUpdateData();
-                    notify();
+
+                    toast.success("Item Added!");
                   }}
                   // disabled={isBtnClicked}
                 >
                   {isLoading ? "loading..." : "Add to cart"}
                   {/* {isBtnClicked ? "Go to Cart" : isLoading ? "Loading..." : "Add to Cart"} */}
                 </button>
-                <ToastContainer
-                  position="bottom-center"
-                  autoClose={5000}
-                  hideProgressBar={false}
-                  newestOnTop={false}
-                  closeOnClick
-                  rtl={false}
-                  pauseOnFocusLoss
-                  draggable
-                  pauseOnHover
-                  theme="dark"
-                />
+
                 <button
                   className="mt-6 bg-gray-900 py-2 
               px-10 text-white rounded-3xl  md:rounded 

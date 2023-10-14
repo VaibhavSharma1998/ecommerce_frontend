@@ -7,10 +7,14 @@ import { FcGoogle } from "react-icons/fc";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
+
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+ 
 
   // const onSubmit = async (data) => {
   //     // e.preventDefault()
@@ -38,8 +42,8 @@ const Login = () => {
     setIsLoading(true);
     login(data)
       .then((res) => {
-        alert("Login Successfully!");
         
+        toast.success("Login Sucessfully!")
         console.log(res,"res")
         localStorage.setItem("token", JSON.stringify(res.data.token));
         reset();
@@ -49,7 +53,8 @@ const Login = () => {
       })
       .catch((error) => {
         console.log("Error:", error);
-        alert("Login Failed");
+        toast.error("Login Failed!")
+       
         setIsLoading(false);
       });
   };
@@ -81,11 +86,11 @@ const Login = () => {
     resolver: yupResolver(validationSchema),
   });
   return (
-    <div className="flex items-center justify-center flex-col">
+    <div className="flex items-center  flex-col w-100 px-[1 0%]">
       {/* div for  logo and name of the website */}
       <div
         className="flex items-center justify-center flex-col 
-            bg-gray-400 w-[25rem] pt-4 "
+            bg-gray-400  pt-10 w-full "
       >
         {" "}
         {/* Use flex items-center to align image and text */}
@@ -98,12 +103,12 @@ const Login = () => {
       {/* div for email and password */}
       <div
         className="flex  items-center justify-center
-            w-[25rem] bg-gray-400"
+        w-full bg-gray-400 pt-10"
       >
         <form className="mx-5" onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="email" className="block  mt-4">
             {" "}
-            Email<span className="text-red-600"> *</span>
+            Email:<span className="text-red-600"> *</span>
           </label>
           <Controller
             name="email"
@@ -125,8 +130,8 @@ const Login = () => {
             <p className="text-red-600">{errors.email.message}</p>
           )}
 
-          <label htmlFor="password" className="block  mt-4">
-            Password<span className="text-red-600"> *</span>
+          <label htmlFor="password" className="block  mt-10">
+            Password:<span className="text-red-600"> *</span>
           </label>
           <Controller
             name="password"
@@ -154,17 +159,18 @@ const Login = () => {
             type="submit"
             value={isLoading ? "loading..." : "Log In"}
             className="bg-black text-white w-80 
-                    rounded-3xl py-2 px-4 mt-8 cursor-pointer"
+                    rounded-3xl py-2 px-4 mt-10 cursor-pointer"
           />
+          
         </form>
       </div>
 
       {/* div for social media handle */}
       <div
-        className="flex items-center w-[25rem]   
-                         flex-col justify-center bg-gray-400 pb-4"
+        className="flex items-center w-full
+                         flex-col justify-center bg-gray-400 pb-4 pt-10"
       >
-        <h1 style={{ margin: "auto" }} className="pt-4">
+        {/* <h1 style={{ margin: "auto" }} className="pt-4">
           OR
         </h1>
         <div
@@ -180,8 +186,8 @@ const Login = () => {
             value={`Continue with google`}
             className="mr-4 "
           />
-        </div>
-        <p className="pt-3">
+        </div> */}
+        <p className="pt-3 pb-10">
           Don't have an account?
           <span
             className="text-gray-900 font-bold cursor-pointer"

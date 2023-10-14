@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCartAsync } from "./store/reducers/cartReducer";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { state } = location;
-  console.log("checkPrice",state)
+  console.log("checkPrice", state);
   const navigate = useNavigate();
   const cart = useSelector((state) => state.cart);
 
@@ -23,18 +23,6 @@ const Cart = () => {
     // Dispatch the async action to remove the item from the cart
     dispatch(removeItemFromCartAsync(_id));
   };
-
-  const notify = () =>
-    toast.error("Item Removed!", {
-      position: "bottom-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-    });
 
   useEffect(() => {
     setIsLoading(true);
@@ -108,7 +96,9 @@ const Cart = () => {
   }, [cartItems, subTotal]);
 
   const checkToken = () => {
-    !!localStorage.getItem("token") ? navigate("/payment", { state: `₹${state.price}` }) : navigate("/login");
+    !!localStorage.getItem("token")
+      ? navigate("/payment", { state: `₹${state.price}` })
+      : navigate("/login");
   };
 
   return (
@@ -146,7 +136,7 @@ const Cart = () => {
                         // onClick={() => removeFromCart(items._id)}{ isLoading? "loading..." :items.rating}
                         onClick={() => {
                           removeFromCartHandler(items._id);
-                          notify();
+                          toast.error("Item Removed!");
                         }}
                       >
                         Remove
@@ -164,18 +154,6 @@ const Cart = () => {
                       >
                         Buy Now
                       </button>
-                      <ToastContainer
-                        position="bottom-center"
-                        autoClose={5000}
-                        hideProgressBar={false}
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="dark"
-                      />
                     </div>
                     <p className="mt-10">
                       <span className="text-gray-400">Category:</span>

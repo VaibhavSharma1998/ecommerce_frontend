@@ -12,8 +12,11 @@ const Navbar = () => {
 
   const [cartLength, setCartLenght] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
-  const name = localStorage.getItem("personName");
+  const name = localStorage.getItem("personName")
   const parsedName = JSON.parse(name);
+  // Split the full name into an array of words
+const nameParts = parsedName.split(" ");
+  const firstName = nameParts[0]
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -124,7 +127,7 @@ const Navbar = () => {
           font-bold mx-8 border px-8 py-1 rounded hover:bg-black 
            hover:text-white hidden md:block"
           >
-            {token ? parsedName : "Login"}
+            {token ? firstName : "Login"}
           </Link>
           {token ? (
             <button
@@ -192,7 +195,7 @@ const Navbar = () => {
               font-bold md:mx-8 border px-8 py-1 rounded hover:bg-black 
              hover:text-white"
             >
-              {token ? parsedName : "Login"}
+              {token ? firstName : "Login"}
             </Link>
             {token ? (
               <button

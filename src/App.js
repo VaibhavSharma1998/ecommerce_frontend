@@ -23,6 +23,7 @@ import Main from "./Components/Pages/Main";
 import Payment from "./Components/Pages/Payment";
 import CheckoutForm from "./Components/Pages/CheckoutForm";
 import Success from "./Components/Success";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
         <Route path="/checkout" element={<CheckoutForm />} />
         <Route path="/success" element={<Success />} />
       </Routes>
+      <ToastContainer/>
     </BrowserRouter>
   );
 }
