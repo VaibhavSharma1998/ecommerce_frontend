@@ -39,11 +39,13 @@ const Login = () => {
     login(data)
       .then((res) => {
         alert("Login Successfully!");
+        
         console.log(res,"res")
         localStorage.setItem("token", JSON.stringify(res.data.token));
         reset();
         navigate("/men");
         setIsLoading(false);
+        window.location.reload()
       })
       .catch((error) => {
         console.log("Error:", error);

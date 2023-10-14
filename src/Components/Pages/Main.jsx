@@ -197,7 +197,7 @@ const Main = () => {
           {/* Best deal text start */}
           <div className="flex justify-center items-center ">
             <p
-              className="text-red-700 my-16 font-bold 
+              className="text-gray-700 my-16 font-bold 
         text-4xl"
             >
               Best Deals

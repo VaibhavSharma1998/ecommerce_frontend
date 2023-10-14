@@ -53,7 +53,7 @@ const Navbar = () => {
 
   const handleLogout = () =>{
     localStorage.removeItem("token")
-   
+    window.location.reload()
   }
 
   return (
@@ -128,9 +128,9 @@ const Navbar = () => {
           </Link>
           {token ? (
             <button
-              className="text-gray-900  w-32 text-center
+              className=" w-32 text-center
                 font-bold md:mx-8 border px-8 py-1 rounded hover:bg-black 
-               hover:text-white bg-red-700"
+               hover:text-white bg-gray-700 text-white"
                onClick={handleLogout}
             >
               Log out
