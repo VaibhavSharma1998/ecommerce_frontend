@@ -10,3 +10,4 @@ export const register = async (data) => {
 export const login = async (data) =>{
     return await axios.post(`${base_url}/login`,data)
 }
+

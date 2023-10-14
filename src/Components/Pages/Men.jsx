@@ -6,7 +6,7 @@ const Men = () => {
   const [womenProducts,setWomenProducts] = useState([])
 
  useEffect(()=>{
-  axios.get('http://localhost:4000/api/v1/products/men')
+  axios.get('https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products/men')
   .then((res)=>{
     // console.log("women",res.data.products)
     setWomenProducts(res.data.products)

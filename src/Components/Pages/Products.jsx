@@ -9,7 +9,7 @@ const Products = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/api/v1/products")
+      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products")
       .then((res) => {
         setItems(res.data.products);
         console.log(res.data);

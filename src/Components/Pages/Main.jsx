@@ -29,7 +29,7 @@ const Main = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:4000/api/v1/products")
+      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products")
       .then((res) => {
         console.log("Data:", res.data);
 

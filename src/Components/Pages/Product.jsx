@@ -24,7 +24,7 @@ const Product = () => {
 
     try {
       // url end point
-      const apiUrl = `http://localhost:4000/api/v1/product/${state._id}`;
+      const apiUrl = `https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/product/${state._id}`;
       // console.log("apiUrl:", apiUrl);
 
       // const updatedData ={
@@ -45,7 +45,7 @@ const Product = () => {
       setIsLoading(false);
 
       if (state) {
-        const apiUrl = `http://localhost:4000/api/v1/product/${state._id}`;
+        const apiUrl = `https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/product/${state._id}`;
         const updatedData = {
           addToCart: true,
         };

@@ -27,7 +27,7 @@ const Cart = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:4000/api/v1/products")
+      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products")
       .then((res) => {
         setCartItems(
           res.data.products.filter((item) => item.addToCart === true)
@@ -44,7 +44,7 @@ const Cart = () => {
   // cartItems == add this inside the dependency array to remove the the items from cart
 
   // const removeFromCart = useEffect((_id) => {
-  //   const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
+  //   const ApiUrl = `https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/product/${_id}`;
   //   axios
   //     .put(ApiUrl, {
   //       addToCart: true,
@@ -64,7 +64,7 @@ const Cart = () => {
   // Function to remove an item from the cart
 
   // const removeFromCart = (_id) => {
-  //   const ApiUrl = `http://localhost:4000/api/v1/product/${_id}`;
+  //   const ApiUrl = `https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/product/${_id}`;
   //   axios
   //     .put(ApiUrl, {
   //       addToCart: false,

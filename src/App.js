@@ -60,4 +60,6 @@ function App() {
 
 export default App;
 
-export const base_url = "http://localhost:4000/api/v1";
+// export const base_url = "http://localhost:4000/api/v1";
+export const base_url = "https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1";
+
