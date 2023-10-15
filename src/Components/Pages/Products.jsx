@@ -18,9 +18,9 @@ const Products = () => {
       .catch((err) => {
         console.log("can-not get the data", err);
       });
-  }, []);
+  }, [items]);
 
-  window.scrollTo(0, 0);
+  // window.scrollTo(0, 0);
 
   const navigate = useNavigate();
   return (

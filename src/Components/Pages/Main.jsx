@@ -29,7 +29,9 @@ const Main = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products")
+      .get(
+        "https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products"
+      )
       .then((res) => {
         console.log("Data:", res.data);
 
@@ -89,7 +91,6 @@ const Main = () => {
         setIsLoading(false);
       });
   }, []);
-
 
   useEffect(() => {
     if (selectGender === "Women") {
@@ -163,9 +164,7 @@ const Main = () => {
            text-gray-700 py-2 px-8 
           absolute md:left-[20%] md:top-[50%]
           hover:bg-gray-700 hover:text-white top-[25%] left-[30%]"
-                onClick={() =>
-                  navigate("/women")
-                }
+                onClick={() => navigate("/women")}
               >
                 For Her
               </button>
@@ -213,7 +212,8 @@ const Main = () => {
             >
               {products.map((product, index) =>
                 product.name === "Flat Hill Slingback" ? (
-                  <div key={index}
+                  <div
+                    key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -251,7 +251,8 @@ const Main = () => {
             >
               {products.map((product, index) =>
                 product.name === "blue ring" ? (
-                  <div key={index}
+                  <div
+                    key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -286,7 +287,8 @@ const Main = () => {
             <div className="md:w-[25%]   w-full bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Brown Leathered Wallet" ? (
-                  <div key={index}
+                  <div
+                    key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -320,7 +322,8 @@ const Main = () => {
             <div className="md:w-[25%]   w-full   bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Sliverside Wristwatch" ? (
-                  <div key={index}
+                  <div
+                    key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -334,7 +337,6 @@ const Main = () => {
                         },
                       })
                     }
-                   
                   >
                     <img
                       key={index}
