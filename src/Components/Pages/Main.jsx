@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
-  // step 1: create  a state variable
+  // step 1: create  a state variable`
 
   // note add selectgender as a variable in first
   const [selectGender, setSelectedGender] = useState("Women");
@@ -213,7 +213,7 @@ const Main = () => {
             >
               {products.map((product, index) =>
                 product.name === "Flat Hill Slingback" ? (
-                  <div 
+                  <div key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -251,7 +251,7 @@ const Main = () => {
             >
               {products.map((product, index) =>
                 product.name === "blue ring" ? (
-                  <div
+                  <div key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -286,7 +286,7 @@ const Main = () => {
             <div className="md:w-[25%]   w-full bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Brown Leathered Wallet" ? (
-                  <div
+                  <div key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -320,7 +320,7 @@ const Main = () => {
             <div className="md:w-[25%]   w-full   bg-[#dedede] rounded-md p-2 cursor-pointer mt-5 mr-4">
               {products.map((product, index) =>
                 product.name === "Sliverside Wristwatch" ? (
-                  <div
+                  <div key={index}
                     onClick={() =>
                       navigate("/product", {
                         state: {
@@ -334,7 +334,7 @@ const Main = () => {
                         },
                       })
                     }
-                    key={index}
+                   
                   >
                     <img
                       key={index}
