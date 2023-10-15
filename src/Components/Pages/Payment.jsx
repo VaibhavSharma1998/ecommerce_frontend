@@ -12,10 +12,13 @@ const Payment = () => {
   console.log("Paisa",state)
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
+  
+  
+
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/config")
+      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/config")
       .then(async (res) => {
         const { publishableKey } = await res.data;
         console.log("Publickey:", res);
@@ -28,7 +31,7 @@ const Payment = () => {
 
   useEffect(() => {
     axios
-      .post("http://localhost:4000/create-payment-intent", {})
+      .post("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/create-payment-intent", {})
       .then(async (res) => {
         const { clientSecret } = await res.data;
         console.log("Secretkey:", clientSecret);

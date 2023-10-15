@@ -89,7 +89,7 @@ const Main = () => {
         setIsLoading(false);
       });
   }, []);
-  // products,womenShoes,womenWatches
+
 
   useEffect(() => {
     if (selectGender === "Women") {
@@ -161,8 +161,8 @@ const Main = () => {
               <button
                 className="bg-white
            text-gray-700 py-2 px-8 
-          absolute left-[20%] top-[50%]
-          hover:bg-gray-700 hover:text-white"
+          absolute md:left-[20%] md:top-[50%]
+          hover:bg-gray-700 hover:text-white top-[25%] left-[30%]"
                 onClick={() =>
                   navigate("/women")
                 }
@@ -419,7 +419,7 @@ const Main = () => {
                 ) : null
               )}
               <button
-                className="absolute right-64 bottom-5
+                className="absolute    right-[30%] bottom-5
          text-white font-bold text-xl"
                 onClick={() =>
                   navigate("/exclusiveproducts", { state: exclusiveProducts })
@@ -445,8 +445,8 @@ const Main = () => {
                 ) : null
               )}
               <button
-                className="absolute left-32 bottom-5
-         text-white font-bold text-xl"
+                className="absolute left-32 bottom-5 md:left-16 lg:left-32
+         text-white font-bold text-xl "
                 onClick={() => navigate("/womenbagpacks", { state: womenBags })}
               >
                 Vanity Bags <span className="text-">&#8594;</span>
@@ -464,7 +464,7 @@ const Main = () => {
                 ) : null
               )}
               <button
-                className="absolute left-32 bottom-5
+                className="absolute left-32 bottom-5 md:left-16 lg:left-32
           font-bold text-xl text-black"
                 onClick={() =>
                   navigate("/womenwatches", { state: womenWatches })
@@ -488,7 +488,7 @@ const Main = () => {
                 ) : null
               )}
               <button
-                className="absolute right-32 bottom-5
+                className="absolute left-32 bottom-5 md:left-16 lg:left-32
           text-[#cc9797] font-extrabold text-xl"
                 onClick={() => navigate("/womenshoes", { state: womenShoes })}
               >

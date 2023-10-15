@@ -124,9 +124,14 @@ const Product = () => {
                   className="mt-6 bg-gray-900 py-2 
               px-10 text-white rounded-3xl  md:rounded 
               hover:bg-black mr-4"
-                  onClick={() =>
-                    navigate("/payment", { state: `₹${state.price}` })
-                  }
+                  // onClick={() =>
+                  //   navigate("/payment", { state: `₹${state.price}` })
+                  // }
+                  onClick={() => {
+                    handleUpdateData();
+
+                    toast.success("Payment mode is not integrated yet!");
+                  }}
                 >
                   Buy Now
                 </button>

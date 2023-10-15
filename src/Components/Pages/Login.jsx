@@ -3,7 +3,7 @@ import logo from "../../assets/img/logo.png";
 // import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import { login } from "../services/userServices";
-import { FcGoogle } from "react-icons/fc";
+
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -15,28 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
 
  
-
-  // const onSubmit = async (data) => {
-  //     // e.preventDefault()
-
-  //     try {
-  //         const res = await axios.post('http://localhost:4000/api/v1/login', data)
-
-  //         if (res.status === 200) {
-  //             const userData = res.data
-  //             localStorage.setItem('userData', JSON.stringify(userData))
-  //             alert('Login Successfully!')
-  //             reset()
-  //             navigate('/men')
-  //         } else {
-  //             alert('Invalid User,Please signup to continue')
-  //         }
-
-  //     } catch (err) {
-  //         console.log('Error:', err)
-  //         alert('Inside catch error')
-  //     }
-  // }
 
   const onSubmit = (data) => {
     setIsLoading(true);
@@ -86,7 +64,7 @@ const Login = () => {
     resolver: yupResolver(validationSchema),
   });
   return (
-    <div className="flex items-center  flex-col w-100 px-[1 0%]">
+    <div className="flex items-center  flex-col">
       {/* div for  logo and name of the website */}
       <div
         className="flex items-center justify-center flex-col 
@@ -168,25 +146,9 @@ const Login = () => {
       {/* div for social media handle */}
       <div
         className="flex items-center w-full
-                         flex-col justify-center bg-gray-400 pb-4 pt-10"
+                         flex-col justify-center bg-gray-400 pb-4 "
       >
-        {/* <h1 style={{ margin: "auto" }} className="pt-4">
-          OR
-        </h1>
-        <div
-          className="flex items-center 
-                    justify-center
-                    rounded-3xl
-                    py-2 px-4 mt-2 cursor-pointer
-                    bg-gray-300  text-black w-80 "
-        >
-          <FcGoogle className="mr-2" />
-          <input
-            type="submit"
-            value={`Continue with google`}
-            className="mr-4 "
-          />
-        </div> */}
+       
         <p className="pt-3 pb-10">
           Don't have an account?
           <span

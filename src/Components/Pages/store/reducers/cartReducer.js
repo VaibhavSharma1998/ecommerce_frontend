@@ -7,7 +7,7 @@ export const removeItemFromCartAsync = createAsyncThunk(
   async (_id) => {
     try {
       // Make an API call to update the cart on the server
-      const apiUrl = `http://localhost:4000/api/v1/product/${_id}`;
+      const apiUrl = `https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/product/${_id}`;
       const updatedData = {
         addToCart: false,
       };

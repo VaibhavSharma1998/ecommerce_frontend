@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import logo from "../../assets/img/logo.png";
 import { useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
+
 import { Controller, useForm } from "react-hook-form";
 // import axios from 'axios'
 import { register } from "../services/userServices";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 // validationSchema using yup step 1
 
@@ -49,25 +50,14 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  // const onSubmit = async (data) => {
-  //   try {
-  //     // Step 3: Perform form submission
-  //     await register(data);
-  //     alert('Registration successful!');
-  //     reset();
-  //     navigate('/login');
-  //   } catch (error) {
-  //     console.log('Error:', error);
-  //     alert('Registration failed. Please try again.');
-  //   }
-  // };
 
   const onSubmit = (data) => {
     setIsLoading(true);
     register(data)
       .then((res) => {
         // register succesful
-        alert("Registration successful!");
+        toast.success("Registration successful!")
+        // alert("Registration successful!");
         console.log("sigup:",res.data.user.name)
         localStorage.setItem("personName",JSON.stringify(res.data.user.name))
         reset();
@@ -77,6 +67,7 @@ const Signup = () => {
       .catch((error) => {
         // Registration failed
         console.log("Error", error);
+        toast.error("Registration failed. Please try again.")
         // alert("Registration failed. Please try again.");
         setIsLoading(false);
       });
@@ -87,8 +78,8 @@ const Signup = () => {
     <div className="flex items-center justify-center flex-col   ">
       {/* div for  logo and name of the website */}
       <div
-        className="flex items-center w-[25rem]   
-      flex-col justify-center bg-gray-400 pt-4"
+        className="flex items-center w-full
+      flex-col justify-center bg-gray-400 pt-10"
       >
         {/* Use flex items-center to align image and text */}
         <img src={logo} alt="Website logo" style={{ display: "block" }} />
@@ -99,13 +90,13 @@ const Signup = () => {
 
       {/* div for form and sign up  button */}
       <div
-        className="flex  items-center w-[25rem]   
+        className="flex  items-center w-full
       flex-col justify-center bg-gray-400 "
       >
         {/* step4:added the onSubmit handler to the form */}
 
         <form className="mx-5" onSubmit={handleSubmit(onSubmit)}>
-          <label htmlFor="name" className="block">
+          <label htmlFor="name" className="block pt-4">
             Name <span className="text-red-600"> *</span>
           </label>
 
@@ -130,7 +121,7 @@ const Signup = () => {
 
           {/* step 5: Usecontroller for input fields */}
 
-          <label htmlFor="email" className="block  ">
+          <label htmlFor="email" className="block  pt-4">
             {" "}
             Email<span className="text-red-600"> *</span>
           </label>
@@ -154,7 +145,7 @@ const Signup = () => {
             <p className="text-red-600">{errors.email.message}</p>
           )}
 
-          <label htmlFor="password" className="block ">
+          <label htmlFor="password" className="block pt-4">
             Password<span className="text-red-600"> *</span>
           </label>
 
@@ -178,7 +169,7 @@ const Signup = () => {
             <p className="text-red-600">{errors.password.message}</p>
           )}
 
-          <label htmlFor="name" className="block">
+          <label htmlFor="name" className="block pt-4">
             Confirm Password<span className="text-red-600"> *</span>
           </label>
 
@@ -208,7 +199,7 @@ const Signup = () => {
             type="submit"
             value={isLoading ? "loading..." : "Sign Up"}
             className="bg-black  text-white w-80 
-            rounded-3xl py-2 px-4 mt-2 cursor-pointer"
+            rounded-3xl py-2 px-4 mt-10 cursor-pointer"
           />
         </form>
       </div>
@@ -216,26 +207,10 @@ const Signup = () => {
       {/* div for social media handle */}
 
       <div
-        className="flex items-center w-[25rem]   
-      flex-col justify-center bg-gray-400 pb-4"
+        className="flex items-center w-full
+      flex-col justify-center bg-gray-400 pb-10"
       >
-        <h1 style={{ margin: "auto" }} className="pt-4">
-          OR
-        </h1>
-        <div
-          className="flex items-center 
-        justify-center
-        rounded-3xl
-         py-2 px-4 mt-2 cursor-pointer
-         bg-gray-300  text-black w-80 "
-        >
-          <FcGoogle className="mr-2" />
-          <input
-            type="submit"
-            value={`Continue with google`}
-            className="mr-4 "
-          />
-        </div>
+       
         <p className="pt-3">
           Already have an account?
           <span

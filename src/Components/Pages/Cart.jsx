@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeItemFromCartAsync } from "./store/reducers/cartReducer";
 import { toast } from "react-toastify";
@@ -11,7 +11,7 @@ const Cart = () => {
   const location = useLocation();
   const { state } = location;
   console.log("checkPrice", state);
-  const navigate = useNavigate();
+  
   const cart = useSelector((state) => state.cart);
 
   const [cartItems, setCartItems] = useState([]);
@@ -95,11 +95,11 @@ const Cart = () => {
     console.log("Total Price:", calculatedSubTotal);
   }, [cartItems, subTotal]);
 
-  const checkToken = () => {
-    !!localStorage.getItem("token")
-      ? navigate("/payment", { state: `₹${state.price}` })
-      : navigate("/login");
-  };
+  // const checkToken = () => {
+  //   !!localStorage.getItem("token")
+  //     ? navigate("/payment", { state: `₹${state.price}` })
+  //     : navigate("/login");
+  // };
 
   return (
     <div className="flex w-full px-[10%] mt-5 relative">
@@ -150,7 +150,8 @@ const Cart = () => {
                         //   navigate("/payment", { state: `₹${items.price}` })
                         // }
                         // onClick={()=> navigate("/login")}
-                        onClick={checkToken}
+                        // onClick={checkToken}
+                        onClick={()=> toast.success('Payment mode is not integrated yet!')}
                       >
                         Buy Now
                       </button>
@@ -190,7 +191,8 @@ const Cart = () => {
               <button
                 className="py-4 px-10 text-white 
                    bg-[#FB641B] hover:bg-[#C63D2F] md:rounded rounded-3xl"
-                onClick={() => navigate("/payment", { state: `₹${subTotal}` })}
+                // onClick={() => navigate("/payment", { state: `₹${subTotal}` })}
+                onClick={()=> toast.success('Payment mode is not integrated yet!')}
               >
                 Place Order
               </button>

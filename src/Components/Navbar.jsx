@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross2 } from "react-icons/rx";
 // import { RxCross2 } from "react-icons/rx";
 
 const Navbar = () => {
@@ -12,16 +13,18 @@ const Navbar = () => {
 
   const [cartLength, setCartLenght] = useState(0);
   const [showMenu, setShowMenu] = useState(false);
-  const name = localStorage.getItem("personName")
+  const name = localStorage.getItem("personName");
   const parsedName = JSON.parse(name);
   // Split the full name into an array of words
-const nameParts = parsedName.split(" ");
-  const firstName = nameParts[0]
+  const nameParts = parsedName.split(" ");
+  const firstName = nameParts[0];
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
-      .get("https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products")
+      .get(
+        "https://ecommerce-backend-git-main-vaibhavsharma1998.vercel.app/api/v1/products"
+      )
       .then((res) => {
         // console.log("AllProducts",res.data.products)
         const value = res.data.products.filter(
@@ -29,6 +32,7 @@ const nameParts = parsedName.split(" ");
         );
         console.log("Length:", value);
         setCartLenght(value.length);
+        
       })
       .catch((err) => {
         console.log("Error:", err);
@@ -54,10 +58,10 @@ const nameParts = parsedName.split(" ");
     setShowMenu(!showMenu);
   };
 
-  const handleLogout = () =>{
-    localStorage.removeItem("token")
-    window.location.reload()
-  }
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
+  };
 
   return (
     <>
@@ -108,12 +112,21 @@ const nameParts = parsedName.split(" ");
               OUTLET
             </Link> */}
           </div>
+          
           <div className="md:hidden">
-            <GiHamburgerMenu
-              size={25}
-              onClick={toggleMenu}
-              className="cursor-pointer flex-col  md:space-x-4 transition-all duration-500 ease-in-out  max-h-10 w-full"
-            />
+            {
+              showMenu ? ( 
+                <RxCross2
+                  size={25}
+                  onClick={toggleMenu}
+                  className="cursor-pointer flex-col  md:space-x-4 transition-all duration-500 ease-in-out  max-h-10 w-full"
+                />) : ( <GiHamburgerMenu
+                  size={25}
+                  onClick={toggleMenu}
+                  className="cursor-pointer flex-col  md:space-x-4 transition-all duration-500 ease-in-out  max-h-10 w-full"
+                />) 
+            }
+          
           </div>
         </div>
 
@@ -134,7 +147,7 @@ const nameParts = parsedName.split(" ");
               className=" w-32 text-center
                 font-bold md:mx-8 border px-8 py-1 rounded hover:bg-black 
                hover:text-white bg-gray-700 text-white"
-               onClick={handleLogout}
+              onClick={handleLogout}
             >
               Log out
             </button>
@@ -156,22 +169,25 @@ const nameParts = parsedName.split(" ");
         {/* Mobile menu icon (visible on small screens) */}
       </div>
       {showMenu && (
-        <div className="flex flex-col md:hidden gap-8 pl-10 absolute bg-white w-full z-50">
+        <div className="flex flex-col md:hidden gap-8 pl-10 absolute bg-white w-full z-50 justify-center items-center">
           <Link
             to="/men"
             className="text-gray-900 font-bold hover:text-gray-400"
+            onClick={toggleMenu}
           >
             MEN
           </Link>
           <Link
             to="/women"
             className="text-gray-900 font-bold hover:text-gray-400"
+            onClick={toggleMenu}
           >
             WOMEN
           </Link>
           <Link
             to="/kids"
             className="text-gray-900 font-bold hover:text-gray-400"
+            onClick={toggleMenu}
           >
             KIDS
           </Link>
@@ -194,6 +210,7 @@ const nameParts = parsedName.split(" ");
               className="text-gray-900 bg-gray-100 w-32 text-center
               font-bold md:mx-8 border px-8 py-1 rounded hover:bg-black 
              hover:text-white"
+             onClick={toggleMenu}
             >
               {token ? firstName : "Login"}
             </Link>
@@ -202,6 +219,7 @@ const nameParts = parsedName.split(" ");
                 className="text-gray-900  w-32 text-center
                 font-bold md:mx-8 border px-8 py-1 rounded hover:bg-black 
                hover:text-white bg-red-700"
+                onClick={handleLogout}
               >
                 Log out
               </button>
@@ -216,7 +234,7 @@ const nameParts = parsedName.split(" ");
                 <span className="mr-1 rounded-[100%] bg-red-400 text-white px-[6px]">
                   {cartLength}
                 </span>
-                <span>Cart</span>
+                <span onClick={toggleMenu}>Cart</span>
               </div>
             </Link>
           </div>
