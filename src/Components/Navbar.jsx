@@ -16,8 +16,8 @@ const Navbar = () => {
   const name = localStorage.getItem("personName");
   const parsedName = JSON.parse(name);
   // Split the full name into an array of words
-  const nameParts = parsedName.split(" ");
-  const firstName = nameParts[0];
+  // const nameParts = parsedName.split(" ");
+  // const firstName = nameParts[0];
   const token = localStorage.getItem("token");
 
   useEffect(() => {
@@ -140,7 +140,7 @@ const Navbar = () => {
           font-bold mx-8 border px-8 py-1 rounded hover:bg-black 
            hover:text-white hidden md:block"
           >
-            {token ? firstName : "Login"}
+            {token ? parsedName : "Login"}
           </Link>
           {token ? (
             <button
@@ -212,7 +212,7 @@ const Navbar = () => {
              hover:text-white"
              onClick={toggleMenu}
             >
-              {token ? firstName : "Login"}
+              {token ? parsedName : "Login"}
             </Link>
             {token ? (
               <button
